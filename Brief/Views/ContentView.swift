@@ -9,8 +9,9 @@ import AppKit
 import SwiftUI
 
 struct ContentView: View {
-    @State var inputText: String = "Here is some text."
-    @State var summarizedText: String = "This is the summary."
+    @ObservedObject var summarizer = Summarizer()
+
+    @State var inputText: String = ""
     @State var summaryRatio: Double = 0.25
 
     private let fontName = "HelveticaNeue"
@@ -24,12 +25,22 @@ struct ContentView: View {
                 .font(.custom(fontName, size: fontSize))
                 .padding(.horizontal)
                 .padding(.top)
-            TextEditor(text: $summarizedText)
+
+            Text(summarizer.summarizedText)
                 .font(.custom(fontName, size: fontSize))
+                .frame(minHeight: 20)
+                .padding(5)
+                .background(
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .foregroundColor(colorScheme == .light ? .white : .darkmodeSecondary)
+                )
                 .padding(.horizontal)
+                .padding(.top, 5)
 
             HStack {
-                Button(action: {}) {
+                Button(action: {
+                    self.inputText = ""
+                }) {
                     Text("Clear")
                 }
 
@@ -47,7 +58,10 @@ struct ContentView: View {
                         .foregroundColor(colorScheme == .light ? .secondaryLightGray : .clear)
                 )
 
-                Button(action: {}) {
+                Button(action: {
+                    summarizer.inputText = inputText
+                    summarizer.summarize()
+                }) {
                     Text("Summarize")
                 }
 

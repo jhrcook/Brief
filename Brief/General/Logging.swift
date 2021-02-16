@@ -10,5 +10,5 @@ import os
 
 extension Logger {
     static let subsystem = "com.joshuacook.Brief"
-    static let logger = Logger(subsystem: subsystem, category: "example")
+    static let summarizerLogger = Logger(subsystem: subsystem, category: "Summarizer")
 }
