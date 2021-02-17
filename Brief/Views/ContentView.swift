@@ -8,11 +8,26 @@
 import AppKit
 import SwiftUI
 
+struct TextBackground: ViewModifier {
+    let colorScheme: ColorScheme
+
+    func body(content: Content) -> some View {
+        content
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .foregroundColor(colorScheme == .light ? .white : .darkmodeSecondary)
+            )
+    }
+}
+
+extension View {
+    func textBackground(colorScheme: ColorScheme) -> some View {
+        modifier(TextBackground(colorScheme: colorScheme))
+    }
+}
+
 struct ContentView: View {
     @ObservedObject var summarizer = Summarizer()
-
-    @State var inputText: String = ""
-    @State var summaryRatio: Double = 0.25
 
     private let fontName = "HelveticaNeue"
     private let fontSize: CGFloat = 14
@@ -21,8 +36,10 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            TextEditor(text: $inputText)
+            TextEditor(text: $summarizer.inputText)
                 .font(.custom(fontName, size: fontSize))
+                .padding(5)
+                .textBackground(colorScheme: colorScheme)
                 .padding(.horizontal)
                 .padding(.top)
 
@@ -30,26 +47,21 @@ struct ContentView: View {
                 .font(.custom(fontName, size: fontSize))
                 .frame(minHeight: 20)
                 .padding(5)
-                .background(
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .foregroundColor(colorScheme == .light ? .white : .darkmodeSecondary)
-                )
+                .textBackground(colorScheme: colorScheme)
                 .padding(.horizontal)
                 .padding(.top, 5)
 
             HStack {
-                Button(action: {
-                    self.inputText = ""
-                }) {
+                Button(action: clearButtonTapped) {
                     Text("Clear")
                 }
 
                 Spacer()
 
                 HStack {
-                    Slider(value: $summaryRatio, in: 0.0 ... 1.0)
+                    Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
                         .frame(minWidth: 30, idealWidth: 100, maxWidth: 100)
-                    Text("\(summaryRatio, specifier: "%.2f")")
+                    Text("\(summarizer.summaryRatio, specifier: "%.2f")")
                         .foregroundColor(.secondary)
                 }
                 .padding(.horizontal)
@@ -58,14 +70,11 @@ struct ContentView: View {
                         .foregroundColor(colorScheme == .light ? .secondaryLightGray : .clear)
                 )
 
-                Button(action: {
-                    summarizer.inputText = inputText
-                    summarizer.summarize()
-                }) {
+                Button(action: summarizeButtonTapped) {
                     Text("Summarize")
                 }
 
-                Button(action: {}) {
+                Button(action: copyButtonTapped) {
                     Image(systemName: "doc.on.doc")
                 }
             }
@@ -73,6 +82,18 @@ struct ContentView: View {
         }
         .background(colorScheme == .light ? Color.lightGray : Color.black)
     }
+}
+
+extension ContentView {
+    func clearButtonTapped() {
+        summarizer.inputText = ""
+    }
+
+    func summarizeButtonTapped() {
+        summarizer.summarize()
+    }
+
+    func copyButtonTapped() {}
 }
 
 struct ContentView_Previews: PreviewProvider {
