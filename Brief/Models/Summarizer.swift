@@ -30,6 +30,9 @@ class Summarizer: ObservableObject {
 
     func summarize() {
         textrank.text = inputText
+
+        if textrank.sentences.count < 4 { return }
+
         do {
             let pageRankResult = try textrank.runPageRank()
             textRankConverged = pageRankResult.didConverge
@@ -49,8 +52,8 @@ class Summarizer: ObservableObject {
     private func pageRankeResultToString(sentences: [Sentence]) -> String {
         var results: String = ""
 
-        for sentence in sentences {
-            results += sentence.text + "\n"
+        for (idx, sentence) in sentences.enumerated() {
+            results += sentence.text + (idx == sentences.count - 1 ? "" : "\n")
         }
 
         return results

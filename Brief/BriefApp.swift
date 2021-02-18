@@ -12,7 +12,7 @@ struct BriefApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(minWidth: 100, idealWidth: 400, maxWidth: .infinity, minHeight: 100, idealHeight: 400, maxHeight: .infinity)
+                .frame(minWidth: 400, idealWidth: 800, maxWidth: .infinity, minHeight: 200, idealHeight: 500, maxHeight: .infinity)
         }
     }
 }
