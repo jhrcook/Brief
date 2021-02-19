@@ -90,10 +90,10 @@ struct ContentView: View {
                 Spacer()
 
                 HStack {
-                    Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
-                        .frame(minWidth: 30, idealWidth: 100, maxWidth: 100)
                     Text("\(summarizer.summaryRatio, specifier: "%.2f")")
                         .foregroundColor(.secondary)
+                    Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
+                        .frame(minWidth: 30, idealWidth: 100, maxWidth: 100)
                 }
                 .padding(.horizontal)
                 .background(

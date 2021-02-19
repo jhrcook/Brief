@@ -13,11 +13,22 @@ import TextRank
 class Summarizer: ObservableObject {
     @Published var inputText = ""
     @Published var summaryRatio: Float = 0.20
-    @Published var summarizedText = ""
-    @Published var textRankConverged: Bool? = nil
-    @Published var textRankIterations: Int? = nil
+    var summarizedText: String {
+        guard let pr = pageRankResult else { return "" }
+        return summarizePageRankResult(pr, reduceTo: summaryRatio)
+    }
+
+    @Published var textRankConverged: Bool?
+    @Published var textRankIterations: Int?
 
     let textrank = TextRank()
+
+    var pageRankResult: TextGraph.PageRankResult? {
+        didSet {
+            if pageRankResult == nil { return }
+            summaryRatio += 0.001
+        }
+    }
 
     let logger = Logger.summarizerLogger
 
@@ -38,18 +49,22 @@ class Summarizer: ObservableObject {
             textRankConverged = pageRankResult.didConverge
             textRankIterations = pageRankResult.iterations
             if pageRankResult.didConverge {
-                let filteredSentences = textrank
-                    .filterTopSentencesFrom(pageRankResult, top: summaryRatio)
-                    .keys
-                    .sorted { $0.originalTextIndex < $1.originalTextIndex }
-                summarizedText = pageRankeResultToString(sentences: filteredSentences)
+                self.pageRankResult = pageRankResult
             }
         } catch {
             logger.error("PageRank failed: \(error.localizedDescription)")
         }
     }
 
-    private func pageRankeResultToString(sentences: [Sentence]) -> String {
+    private func summarizePageRankResult(_ PRResult: TextGraph.PageRankResult, reduceTo percentile: Float) -> String {
+        let x = textrank
+            .filterTopSentencesFrom(PRResult, top: percentile)
+            .keys
+            .sorted { $0.originalTextIndex < $1.originalTextIndex }
+        return pageRankResultToString(sentences: x)
+    }
+
+    private func pageRankResultToString(sentences: [Sentence]) -> String {
         var results: String = ""
 
         for (idx, sentence) in sentences.enumerated() {
