@@ -5,7 +5,7 @@
 //  Created by Joshua on 2/16/21.
 //
 
-import Foundation
+import AppKit
 import os
 import SwiftUI
 import TextRank
@@ -74,8 +74,6 @@ class Summarizer: ObservableObject {
         return results
     }
 }
-
-import AppKit
 
 extension Summarizer {
     func clear() {

@@ -21,6 +21,7 @@ struct BriefApp: App {
         #if os(macOS)
             Settings {
                 BriefSettingsView()
+                    .frame(width: 400, height: 100, alignment: .center)
             }
         #endif
     }

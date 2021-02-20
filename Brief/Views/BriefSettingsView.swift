@@ -8,8 +8,39 @@
 import SwiftUI
 
 struct BriefSettingsView: View {
+    @State private var defaultSummaryRatio = 0.0
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                Text("Default summary ratio:")
+                Spacer()
+                Text("\(defaultSummaryRatio * 100, specifier: "%.0f")%")
+                    .foregroundColor(.secondary)
+                Slider(value: $defaultSummaryRatio, in: 0.0 ... 1.0)
+                    .frame(width: 100)
+            }
+            .padding()
+            HStack {
+                Button("Cancel") {
+                    close()
+                    defaultSummaryRatio = Double(UserDefaultsManager().read(key: .defaultSummaryRatio))
+                }
+                .keyboardShortcut(.cancelAction)
+
+                Button("Save") {
+                    UserDefaultsManager().write(value: Float(defaultSummaryRatio), for: .defaultSummaryRatio)
+                    close()
+                }
+            }
+        }
+        .onAppear {
+            defaultSummaryRatio = Double(UserDefaultsManager().read(key: .defaultSummaryRatio))
+        }
+    }
+
+    private func close() {
+        NSApplication.shared.keyWindow?.close()
     }
 }
 

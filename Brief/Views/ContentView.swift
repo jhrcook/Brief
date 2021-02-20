@@ -50,6 +50,9 @@ struct ContentView: View {
         }
         .background(colorScheme == .light ? Color.lightGray : Color.black)
         .focusedValue(\.focusedSummarizer, summarizer)
+        .onAppear {
+            summarizer.summaryRatio = UserDefaultsManager().read(key: .defaultSummaryRatio)
+        }
     }
 }
 
