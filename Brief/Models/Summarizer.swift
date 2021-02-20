@@ -5,9 +5,9 @@
 //  Created by Joshua on 2/16/21.
 //
 
-import Combine
 import Foundation
 import os
+import SwiftUI
 import TextRank
 
 class Summarizer: ObservableObject {
@@ -72,6 +72,21 @@ class Summarizer: ObservableObject {
         }
 
         return results
+    }
+}
+
+import AppKit
+
+extension Summarizer {
+    func clear() {
+        inputText = ""
+        pageRankResult = nil
+    }
+
+    func copyToClipboard() {
+        let pasteboard = NSPasteboard.general
+        pasteboard.declareTypes([.string], owner: nil)
+        pasteboard.setString(summarizedText, forType: .string)
     }
 }
 

@@ -19,14 +19,15 @@ struct ContentView: View {
                 .padding(.horizontal)
 
             HStack {
-                Button(action: clearButtonTapped) {
+                Button(action: summarizer.clear) {
                     Text("Clear")
                 }
+                .keyboardShortcut("b", modifiers: .command)
 
                 Spacer()
 
                 HStack {
-                    Text("\(summarizer.summaryRatio, specifier: "%.2f")")
+                    Text("\(summarizer.summaryRatio * 100, specifier: "%.0f")%")
                         .foregroundColor(.secondary)
                     Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
                         .frame(minWidth: 30, idealWidth: 100, maxWidth: 100)
@@ -37,30 +38,19 @@ struct ContentView: View {
                         .foregroundColor(colorScheme == .light ? .secondaryLightGray : .clear)
                 )
 
-                Button(action: summarizeButtonTapped) {
+                Button(action: summarizer.summarize) {
                     Text("Summarize")
                 }
 
-                Button(action: copyButtonTapped) {
+                Button(action: summarizer.copyToClipboard) {
                     Image(systemName: "doc.on.doc")
                 }
             }
             .padding()
         }
         .background(colorScheme == .light ? Color.lightGray : Color.black)
+        .focusedValue(\.focusedSummarizer, summarizer)
     }
-}
-
-extension ContentView {
-    func clearButtonTapped() {
-        summarizer.inputText = ""
-    }
-
-    func summarizeButtonTapped() {
-        summarizer.summarize()
-    }
-
-    func copyButtonTapped() {}
 }
 
 struct ContentView_Previews: PreviewProvider {
