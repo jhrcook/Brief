@@ -13,17 +13,27 @@ struct BriefCommands: Commands {
         @Environment(\.undoManager) var undoManager
 
         var body: some View {
-            Button("Summarize Text") {
+            Button("Summarize") {
                 summarizer?.summarize()
             }
-            .keyboardShortcut("r", modifiers: .command)
+            .keyboardShortcut(KeyEquivalent("r"), modifiers: .command)
             .disabled(summarizer?.inputText.isEmpty ?? true || summarizer == nil)
+
+            Button("Paste and Summarize") {
+                guard let summarizer = summarizer else { return }
+                if let text = PasteboardManager().getCurrentlyCopiedText() {
+                    summarizer.inputText = text
+                    summarizer.summarize()
+                }
+            }
+            .keyboardShortcut(KeyEquivalent("v"), modifiers: [.command, .option])
+            .disabled(summarizer == nil)
 
             Button("Copy Summary") {
                 guard let s = summarizer else { return }
                 PasteboardManager().copyToClipboard(s.summarizedText)
             }
-            .keyboardShortcut("c", modifiers: [.command, .option])
+            .keyboardShortcut(KeyEquivalent("c"), modifiers: [.command, .option])
             .disabled(summarizer == nil || summarizer?.summarizedText.isEmpty ?? true)
 
             Divider()
@@ -47,7 +57,7 @@ struct BriefCommands: Commands {
             Button("Clear") {
                 summarizer?.clear(withUndoManager: undoManager)
             }
-            .keyboardShortcut("b", modifiers: .command)
+            .keyboardShortcut(KeyEquivalent("b"), modifiers: .command)
             .disabled(summarizer == nil)
         }
     }
