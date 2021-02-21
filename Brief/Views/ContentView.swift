@@ -45,6 +45,7 @@ struct ContentView: View {
                 Button(action: copyButtonTapped) {
                     Image(systemName: "doc.on.doc")
                 }
+                .disabled(summarizer.summarizedText.isEmpty)
             }
             .padding()
         }

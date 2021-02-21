@@ -23,7 +23,7 @@ struct BriefCommands: Commands {
                 PasteboardManager().copyToClipboard(s.summarizedText)
             }
             .keyboardShortcut("c", modifiers: [.command, .option])
-            .disabled(summarizer == nil)
+            .disabled(summarizer == nil || summarizer?.summarizedText.isEmpty ?? true)
 
             Divider()
 
