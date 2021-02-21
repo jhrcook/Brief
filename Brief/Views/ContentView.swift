@@ -42,7 +42,7 @@ struct ContentView: View {
                     Text("Summarize")
                 }
 
-                Button(action: summarizer.copyToClipboard) {
+                Button(action: copyButtonTapped) {
                     Image(systemName: "doc.on.doc")
                 }
             }
@@ -53,6 +53,11 @@ struct ContentView: View {
         .onAppear {
             summarizer.summaryRatio = UserDefaultsManager().read(key: .defaultSummaryRatio)
         }
+    }
+
+    private func copyButtonTapped() {
+        let pbManager = PasteboardManager()
+        pbManager.copyToClipboard(summarizer.summarizedText)
     }
 }
 

@@ -80,12 +80,6 @@ extension Summarizer {
         inputText = ""
         pageRankResult = nil
     }
-
-    func copyToClipboard() {
-        let pasteboard = NSPasteboard.general
-        pasteboard.declareTypes([.string], owner: nil)
-        pasteboard.setString(summarizedText, forType: .string)
-    }
 }
 
 #if DEBUG

@@ -18,9 +18,12 @@ struct BriefCommands: Commands {
             .keyboardShortcut("r", modifiers: .command)
             .disabled(summarizer?.inputText.isEmpty ?? true || summarizer == nil)
 
-            Button("Copy Summary", action: summarizer?.copyToClipboard ?? {})
-                .keyboardShortcut("c", modifiers: [.command, .option])
-                .disabled(summarizer == nil)
+            Button("Copy Summary") {
+                guard let s = summarizer else { return }
+                PasteboardManager().copyToClipboard(s.summarizedText)
+            }
+            .keyboardShortcut("c", modifiers: [.command, .option])
+            .disabled(summarizer == nil)
 
             Divider()
 

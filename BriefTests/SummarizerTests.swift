@@ -62,26 +62,6 @@ class SummarizerTests: XCTestCase {
         }
     }
 
-    func testCopyingSummaryToPasteboard() {
-        // Given
-        summarizer.inputText = text
-        summarizer.summarize()
-
-        // When
-        let pasteboard = NSPasteboard.general
-        pasteboard.declareTypes([.string], owner: nil)
-        let oldPaste = pasteboard.string(forType: .string)
-
-        summarizer.copyToClipboard()
-
-        // Then
-        XCTAssertEqual(pasteboard.string(forType: .string), summarizer.summarizedText)
-
-        if let oldPaste = oldPaste {
-            pasteboard.setString(oldPaste, forType: .string)
-        }
-    }
-
     func testClearing() {
         // Given
         summarizer.inputText = text

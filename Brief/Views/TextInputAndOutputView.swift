@@ -29,6 +29,7 @@ struct TextFontModifier: ViewModifier {
         content
             .foregroundColor(colorScheme == .light ? .black : .white)
             .font(.custom(fontName, size: fontSize))
+            .multilineTextAlignment(.leading)
             .lineSpacing(lineSpace)
     }
 }
