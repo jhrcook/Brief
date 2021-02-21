@@ -6,6 +6,7 @@
 //
 
 @testable import Brief
+import TextRank
 import XCTest
 
 class SummarizerTests: XCTestCase {
@@ -59,5 +60,42 @@ class SummarizerTests: XCTestCase {
         measure {
             summarizer.summarize()
         }
+    }
+
+    func testCopyingSummaryToPasteboard() {
+        // Given
+        summarizer.inputText = text
+        summarizer.summarize()
+
+        // When
+        let pasteboard = NSPasteboard.general
+        pasteboard.declareTypes([.string], owner: nil)
+        let oldPaste = pasteboard.string(forType: .string)
+
+        summarizer.copyToClipboard()
+
+        // Then
+        XCTAssertEqual(pasteboard.string(forType: .string), summarizer.summarizedText)
+
+        if let oldPaste = oldPaste {
+            pasteboard.setString(oldPaste, forType: .string)
+        }
+    }
+
+    func testClearing() {
+        // Given
+        summarizer.inputText = text
+        summarizer.summarize()
+
+        // When
+        let oldInput = summarizer.inputText
+        let oldOutput = summarizer.summarizedText
+        summarizer.clear()
+
+        // Then
+        XCTAssertEqual(oldInput, text)
+        XCTAssertTrue(!oldOutput.isEmpty)
+        XCTAssertTrue(summarizer.inputText.isEmpty)
+        XCTAssertTrue(summarizer.summarizedText.isEmpty)
     }
 }
