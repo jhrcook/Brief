@@ -10,6 +10,7 @@ import SwiftUI
 struct BriefCommands: Commands {
     private struct MenuContent: View {
         @FocusedValue(\.focusedSummarizer) var summarizer
+        @Environment(\.undoManager) var undoManager
 
         var body: some View {
             Button("Summarize Text") {
@@ -43,9 +44,11 @@ struct BriefCommands: Commands {
             .keyboardShortcut(KeyEquivalent("+"), modifiers: [.command, .shift])
             .disabled(summarizer == nil)
 
-            Button("Clear", action: summarizer?.clear ?? {})
-                .keyboardShortcut("b", modifiers: .command)
-                .disabled(summarizer == nil)
+            Button("Clear") {
+                summarizer?.clear(withUndoManager: undoManager)
+            }
+            .keyboardShortcut("b", modifiers: .command)
+            .disabled(summarizer == nil)
         }
     }
 

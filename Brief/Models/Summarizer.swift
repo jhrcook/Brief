@@ -40,6 +40,7 @@ class Summarizer: ObservableObject {
     #endif
 
     func summarize() {
+        logger.info("Running PageRank summarization.")
         textrank.text = inputText
 
         if textrank.sentences.count < 4 { return }
@@ -76,7 +77,17 @@ class Summarizer: ObservableObject {
 }
 
 extension Summarizer {
-    func clear() {
+    func clear(withUndoManager undoManager: UndoManager? = nil) {
+        let copyOfInputText = inputText
+        if let undoManager = undoManager {
+            logger.info("Registering undo action for clear.")
+            undoManager.registerUndo(withTarget: self) { _ in
+                self.inputText = copyOfInputText
+                self.summarize()
+            }
+            undoManager.setActionName("Clear")
+        }
+        logger.info("Clearing text.")
         inputText = ""
         pageRankResult = nil
     }

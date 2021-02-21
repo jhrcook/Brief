@@ -12,6 +12,8 @@ struct ContentView: View {
     @StateObject var summarizer = Summarizer()
     @Environment(\.colorScheme) var colorScheme
 
+    @Environment(\.undoManager) var undoManager
+
     var body: some View {
         VStack {
             TextInputAndOutputView(input: $summarizer.inputText,
@@ -19,10 +21,17 @@ struct ContentView: View {
                 .padding(.horizontal)
 
             HStack {
-                Button(action: summarizer.clear) {
+                Button(action: clearButtonTapped) {
                     Text("Clear")
                 }
                 .keyboardShortcut("b", modifiers: .command)
+
+                Button(action: undoClearButtonTapped) {
+                    Image(systemName: "arrow.uturn.left.circle")
+                        .font(.title2)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .disabled(undoManager == nil || !(undoManager?.canUndo ?? false))
 
                 Spacer()
 
@@ -54,6 +63,14 @@ struct ContentView: View {
         .onAppear {
             summarizer.summaryRatio = UserDefaultsManager().read(key: .defaultSummaryRatio)
         }
+    }
+
+    private func clearButtonTapped() {
+        summarizer.clear(withUndoManager: undoManager)
+    }
+
+    private func undoClearButtonTapped() {
+        undoManager?.undo()
     }
 
     private func copyButtonTapped() {
