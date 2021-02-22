@@ -69,7 +69,7 @@ class Summarizer: ObservableObject {
         var results: String = ""
 
         for (idx, sentence) in sentences.enumerated() {
-            results += sentence.text + (idx == sentences.count - 1 ? "" : "\n")
+            results += sentence.text + (idx == sentences.count - 1 ? "" : "\n\n")
         }
 
         return results

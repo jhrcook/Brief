@@ -50,7 +50,7 @@ struct TextInputAndOutputView: View {
 
     private let fontName = "HelveticaNeue"
     private let fontSize: CGFloat = 14
-    private let textLineSpacing: CGFloat = 10
+    private let textLineSpacing: CGFloat = 4
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -62,12 +62,14 @@ struct TextInputAndOutputView: View {
             .textBackground(colorScheme: colorScheme)
             .padding(.top, 8)
 
-        Text(output)
-            .textFont(fontName: fontName, fontSize: fontSize, lineSapce: textLineSpacing, colorScheme: colorScheme)
-            .frame(minWidth: 50, maxWidth: .infinity, minHeight: 50)
-            .padding(8)
-            .textBackground(colorScheme: colorScheme)
-            .padding(.top, 5)
+        ScrollView {
+            Text(output)
+                .textFont(fontName: fontName, fontSize: fontSize, lineSapce: textLineSpacing, colorScheme: colorScheme)
+                .frame(minWidth: 50, maxWidth: .infinity, minHeight: 50)
+                .padding(8)
+                .textBackground(colorScheme: colorScheme)
+                .padding(.top, 5)
+        }
     }
 }
 
