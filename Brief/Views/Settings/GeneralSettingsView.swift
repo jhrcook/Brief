@@ -29,30 +29,22 @@ struct GeneralSettingsView: View {
 
             Spacer()
 
-            HStack(alignment: .center) {
-                Spacer()
-
-                Button("Cancel") {
-                    close()
-                    loadSettings()
-                }
-                .keyboardShortcut(.cancelAction)
-                .padding(.horizontal)
-
-                Button("Save") {
-                    writeSettings()
-                    close()
-                }
-                .padding(.horizontal)
-
-                Spacer()
-            }
-            .padding()
+            SettingsCancelAndSaveButtons(cancelAction: cancelButtonTapped, saveAction: saveButtonTapped)
+                .padding()
         }
         .onAppear {
             defaultSummaryRatio = Double(UserDefaultsManager().read(key: .defaultSummaryRatio))
         }
-        .frame(width: 500, height: 150)
+    }
+
+    private func cancelButtonTapped() {
+        close()
+        loadSettings()
+    }
+
+    private func saveButtonTapped() {
+        writeSettings()
+        close()
     }
 
     private func loadSettings() {

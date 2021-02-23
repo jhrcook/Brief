@@ -10,7 +10,16 @@ import Foundation
 struct UserDefaultsManager {
     enum UserDefaultsKeys: String {
         case defaultSummaryRatio, clearInputAndOutput
+        case fontname, fontsize, linespacing
     }
+
+    let defaults: [String: Any] = [
+        UserDefaultsKeys.defaultSummaryRatio.rawValue: 0.20,
+        UserDefaultsKeys.clearInputAndOutput.rawValue: true,
+        UserDefaultsKeys.fontname.rawValue: "Helvetica",
+        UserDefaultsKeys.fontsize.rawValue: 12.0,
+        UserDefaultsKeys.linespacing.rawValue: 3.0,
+    ]
 
     init() {
         setDefaultValues()
@@ -24,15 +33,15 @@ struct UserDefaultsManager {
         return UserDefaults.standard.bool(forKey: key.rawValue)
     }
 
+    func read(key: UserDefaultsKeys) -> String {
+        UserDefaults.standard.string(forKey: key.rawValue)!
+    }
+
     func write<T>(value: T, for key: UserDefaultsKeys) {
         UserDefaults.standard.setValue(value, forKey: key.rawValue)
     }
 
     private func setDefaultValues() {
-        let defaults: [String: Any] = [
-            UserDefaultsKeys.defaultSummaryRatio.rawValue: 0.20,
-            UserDefaultsKeys.clearInputAndOutput.rawValue: true,
-        ]
         UserDefaults.standard.register(defaults: defaults)
     }
 }

@@ -20,7 +20,7 @@ struct BriefSettingsView: View {
                 .tabItem {
                     Label("General", systemImage: "gear")
                 }
-            FontSettingsView()
+            FontSettingsView(settingsManager: settingsManager)
                 .tabItem {
                     Label("Font", systemImage: "textformat")
                 }
@@ -29,7 +29,29 @@ struct BriefSettingsView: View {
                     Label("Stopwords", systemImage: "strikethrough")
                 }
         }
+        .frame(width: 500, height: 150)
         .tabViewStyle(DefaultTabViewStyle())
+    }
+}
+
+struct SettingsCancelAndSaveButtons: View {
+    let cancelAction: () -> Void
+    let saveAction: () -> Void
+
+    var body: some View {
+        HStack(alignment: .center) {
+            Spacer()
+
+            Button("Cancel", action: cancelAction)
+                .keyboardShortcut(.cancelAction)
+                .padding(.horizontal)
+
+            Button("Save", action: saveAction)
+                .keyboardShortcut(.return)
+                .padding(.horizontal)
+
+            Spacer()
+        }
     }
 }
 
