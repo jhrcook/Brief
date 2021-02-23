@@ -12,6 +12,8 @@
 		8413B27525B5AC75006E6F9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8413B27425B5AC75006E6F9F /* Assets.xcassets */; };
 		8413B27825B5AC75006E6F9F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8413B27725B5AC75006E6F9F /* Preview Assets.xcassets */; };
 		8413B28F25B5AC76006E6F9F /* BriefUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B28E25B5AC76006E6F9F /* BriefUITests.swift */; };
+		8417DAB625E516F800E1C712 /* View-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8417DAB525E516F800E1C712 /* View-Extension.swift */; };
+		8417DABB25E5182600E1C712 /* StopwordsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8417DABA25E5182600E1C712 /* StopwordsSettingsView.swift */; };
 		8424EA7B25DFD99F00FCEC4E /* BriefCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EA7A25DFD99F00FCEC4E /* BriefCommands.swift */; };
 		8424EA8025DFD9D500FCEC4E /* BriefSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EA7F25DFD9D500FCEC4E /* BriefSettingsView.swift */; };
 		8424EA8525DFE6BD00FCEC4E /* TextInputAndOutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EA8425DFE6BD00FCEC4E /* TextInputAndOutputView.swift */; };
@@ -57,6 +59,8 @@
 		8413B28A25B5AC76006E6F9F /* BriefUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8413B28E25B5AC76006E6F9F /* BriefUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefUITests.swift; sourceTree = "<group>"; };
 		8413B29025B5AC76006E6F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8417DAB525E516F800E1C712 /* View-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View-Extension.swift"; sourceTree = "<group>"; };
+		8417DABA25E5182600E1C712 /* StopwordsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwordsSettingsView.swift; sourceTree = "<group>"; };
 		8424EA7A25DFD99F00FCEC4E /* BriefCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefCommands.swift; sourceTree = "<group>"; };
 		8424EA7F25DFD9D500FCEC4E /* BriefSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefSettingsView.swift; sourceTree = "<group>"; };
 		8424EA8425DFE6BD00FCEC4E /* TextInputAndOutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputAndOutputView.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 				8424EA7F25DFD9D500FCEC4E /* BriefSettingsView.swift */,
 				84924F0B25E3D9A40044D005 /* GeneralSettingsView.swift */,
 				84924F1025E3D9C40044D005 /* FontSettingsView.swift */,
+				8417DABA25E5182600E1C712 /* StopwordsSettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			children = (
 				84DDF19625DA9310005E1864 /* Colors.swift */,
 				84DDF19125DA8C3D005E1864 /* Logging.swift */,
+				8417DAB525E516F800E1C712 /* View-Extension.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -337,12 +343,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				8413B27325B5AC71006E6F9F /* ContentView.swift in Sources */,
+				8417DABB25E5182600E1C712 /* StopwordsSettingsView.swift in Sources */,
 				84DDF19725DA9310005E1864 /* Colors.swift in Sources */,
 				844E1ED125E28B0E0052515C /* PasteboardManager.swift in Sources */,
 				8424EA7B25DFD99F00FCEC4E /* BriefCommands.swift in Sources */,
 				84924F1125E3D9C40044D005 /* FontSettingsView.swift in Sources */,
 				84924F0C25E3D9A40044D005 /* GeneralSettingsView.swift in Sources */,
 				8424EA8525DFE6BD00FCEC4E /* TextInputAndOutputView.swift in Sources */,
+				8417DAB625E516F800E1C712 /* View-Extension.swift in Sources */,
 				84DDF19225DA8C3D005E1864 /* Logging.swift in Sources */,
 				84D8E52025E14E9B006FF5DB /* UserDefaultsManager.swift in Sources */,
 				84C058E025DBDC0500019395 /* Summarizer.swift in Sources */,

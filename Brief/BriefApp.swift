@@ -9,18 +9,20 @@ import SwiftUI
 
 @main
 struct BriefApp: App {
+    let settingsManager = UserDefaultsManager()
+
     @SceneBuilder var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(settingsManager: settingsManager)
                 .frame(minWidth: 400, idealWidth: 800, maxWidth: .infinity, minHeight: 200, idealHeight: 500, maxHeight: .infinity)
         }
         .commands {
-            BriefCommands()
+            BriefCommands(settingsManager: settingsManager)
         }
 
         #if os(macOS)
             Settings {
-                BriefSettingsView()
+                BriefSettingsView(settingsManager: settingsManager)
             }
         #endif
     }

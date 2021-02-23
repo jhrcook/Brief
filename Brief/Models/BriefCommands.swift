@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct BriefCommands: Commands {
+    let settingsManager: UserDefaultsManager
+
     private struct MenuContent: View {
+        let settingsManager: UserDefaultsManager
         @FocusedValue(\.focusedSummarizer) var summarizer
         @Environment(\.undoManager) var undoManager
 
@@ -55,16 +58,22 @@ struct BriefCommands: Commands {
             .disabled(summarizer == nil)
 
             Button("Clear") {
-                summarizer?.clear(withUndoManager: undoManager)
+                summarizer?.clear(withUndoManager: undoManager, clearOutput: settingsManager.read(key: .clearInputAndOutput))
             }
             .keyboardShortcut(KeyEquivalent("b"), modifiers: .command)
+            .disabled(summarizer == nil)
+
+            Button("Clear All") {
+                summarizer?.clear(withUndoManager: undoManager, clearOutput: true)
+            }
+            .keyboardShortcut(KeyEquivalent("b"), modifiers: [.command, .shift])
             .disabled(summarizer == nil)
         }
     }
 
     var body: some Commands {
         CommandMenu("Summarization") {
-            MenuContent()
+            MenuContent(settingsManager: settingsManager)
         }
     }
 }

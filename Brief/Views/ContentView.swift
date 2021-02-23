@@ -10,8 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var summarizer = Summarizer()
+    let settingsManager: UserDefaultsManager
     @Environment(\.colorScheme) var colorScheme
-
     @Environment(\.undoManager) var undoManager
 
     var body: some View {
@@ -61,12 +61,12 @@ struct ContentView: View {
         .background(colorScheme == .light ? Color.lightGray : Color.black)
         .focusedValue(\.focusedSummarizer, summarizer)
         .onAppear {
-            summarizer.summaryRatio = UserDefaultsManager().read(key: .defaultSummaryRatio)
+            summarizer.summaryRatio = settingsManager.read(key: .defaultSummaryRatio)
         }
     }
 
     private func clearButtonTapped() {
-        summarizer.clear(withUndoManager: undoManager)
+        summarizer.clear(withUndoManager: undoManager, clearOutput: settingsManager.read(key: .clearInputAndOutput))
     }
 
     private func undoClearButtonTapped() {
@@ -82,11 +82,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ContentView()
+            ContentView(settingsManager: UserDefaultsManager())
                 .environment(\.colorScheme, .light)
                 .previewDisplayName("Light Mode")
 
-            ContentView()
+            ContentView(settingsManager: UserDefaultsManager())
                 .environment(\.colorScheme, .dark)
                 .previewDisplayName("Dark Mode")
         }

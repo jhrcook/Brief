@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct GeneralSettingsView: View {
-    @State private var defaultSummaryRatio = 0.0
+    let settingsManager: UserDefaultsManager
 
+    @State private var defaultSummaryRatio = 0.0
     @State private var clearInputAndOutput: Bool = true
 
     var body: some View {
@@ -33,13 +34,13 @@ struct GeneralSettingsView: View {
 
                 Button("Cancel") {
                     close()
-                    defaultSummaryRatio = Double(UserDefaultsManager().read(key: .defaultSummaryRatio))
+                    loadSettings()
                 }
                 .keyboardShortcut(.cancelAction)
                 .padding(.horizontal)
 
                 Button("Save") {
-                    UserDefaultsManager().write(value: Float(defaultSummaryRatio), for: .defaultSummaryRatio)
+                    writeSettings()
                     close()
                 }
                 .padding(.horizontal)
@@ -54,13 +55,19 @@ struct GeneralSettingsView: View {
         .frame(width: 500, height: 150)
     }
 
-    private func close() {
-        NSApplication.shared.keyWindow?.close()
+    private func loadSettings() {
+        defaultSummaryRatio = Double(settingsManager.read(key: .defaultSummaryRatio))
+        clearInputAndOutput = settingsManager.read(key: .clearInputAndOutput)
+    }
+
+    private func writeSettings() {
+        settingsManager.write(value: Float(defaultSummaryRatio), for: .defaultSummaryRatio)
+        settingsManager.write(value: clearInputAndOutput, for: .clearInputAndOutput)
     }
 }
 
 struct GeneralSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingsView()
+        GeneralSettingsView(settingsManager: UserDefaultsManager())
     }
 }

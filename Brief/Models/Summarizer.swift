@@ -77,7 +77,7 @@ class Summarizer: ObservableObject {
 }
 
 extension Summarizer {
-    func clear(withUndoManager undoManager: UndoManager? = nil) {
+    func clear(withUndoManager undoManager: UndoManager? = nil, clearOutput: Bool = true) {
         let copyOfInputText = inputText
         if let undoManager = undoManager {
             logger.info("Registering undo action for clear.")
@@ -89,7 +89,9 @@ extension Summarizer {
         }
         logger.info("Clearing text.")
         inputText = ""
-        pageRankResult = nil
+        if clearOutput {
+            pageRankResult = nil
+        }
     }
 }
 

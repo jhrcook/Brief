@@ -9,7 +9,7 @@ import Foundation
 
 struct UserDefaultsManager {
     enum UserDefaultsKeys: String {
-        case defaultSummaryRatio
+        case defaultSummaryRatio, clearInputAndOutput
     }
 
     init() {
@@ -20,6 +20,10 @@ struct UserDefaultsManager {
         return UserDefaults.standard.float(forKey: key.rawValue)
     }
 
+    func read(key: UserDefaultsKeys) -> Bool {
+        return UserDefaults.standard.bool(forKey: key.rawValue)
+    }
+
     func write<T>(value: T, for key: UserDefaultsKeys) {
         UserDefaults.standard.setValue(value, forKey: key.rawValue)
     }
@@ -27,6 +31,7 @@ struct UserDefaultsManager {
     private func setDefaultValues() {
         let defaults: [String: Any] = [
             UserDefaultsKeys.defaultSummaryRatio.rawValue: 0.20,
+            UserDefaultsKeys.clearInputAndOutput.rawValue: true,
         ]
         UserDefaults.standard.register(defaults: defaults)
     }

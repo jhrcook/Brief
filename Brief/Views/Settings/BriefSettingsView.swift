@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct BriefSettingsView: View {
+    let settingsManager: UserDefaultsManager
+
     private enum Tabs: Hashable {
-        case general, font
+        case general, font, stopwords
     }
 
     var body: some View {
         TabView {
-            GeneralSettingsView()
+            GeneralSettingsView(settingsManager: settingsManager)
                 .tabItem {
                     Label("General", systemImage: "gear")
                 }
@@ -22,12 +24,17 @@ struct BriefSettingsView: View {
                 .tabItem {
                     Label("Font", systemImage: "textformat")
                 }
+            StopwordsSettingsView()
+                .tabItem {
+                    Label("Stopwords", systemImage: "strikethrough")
+                }
         }
+        .tabViewStyle(DefaultTabViewStyle())
     }
 }
 
 struct BriefSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        BriefSettingsView().previewLayout(.fixed(width: 400, height: 100))
+        BriefSettingsView(settingsManager: UserDefaultsManager()).previewLayout(.fixed(width: 400, height: 100))
     }
 }
