@@ -48,7 +48,7 @@ struct TextInputAndOutputView: View {
     @Binding var input: String
     var output: String
 
-    private let fontName = "HelveticaNeue"
+    private let fontName = "Helvetica Neue"
     private let fontSize: CGFloat = 14
     private let textLineSpacing: CGFloat = 4
 

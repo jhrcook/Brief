@@ -20,16 +20,18 @@ struct BriefSettingsView: View {
                 .tabItem {
                     Label("General", systemImage: "gear")
                 }
+                .frame(width: 500, height: 150)
             FontSettingsView(settingsManager: settingsManager)
                 .tabItem {
                     Label("Font", systemImage: "textformat")
                 }
+                .frame(width: 500, height: 300)
             StopwordsSettingsView()
                 .tabItem {
                     Label("Stopwords", systemImage: "strikethrough")
                 }
+                .frame(width: 500, height: 150)
         }
-        .frame(width: 500, height: 150)
         .tabViewStyle(DefaultTabViewStyle())
     }
 }
@@ -47,7 +49,7 @@ struct SettingsCancelAndSaveButtons: View {
                 .padding(.horizontal)
 
             Button("Save", action: saveAction)
-                .keyboardShortcut(.return)
+                .keyboardShortcut(.defaultAction)
                 .padding(.horizontal)
 
             Spacer()

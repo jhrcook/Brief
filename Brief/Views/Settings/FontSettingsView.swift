@@ -20,35 +20,46 @@ struct FontSettingsView: View {
     }
 
     @State private var selectedFontIndex: Int = 0
-
     private let availableFonts = NSFontManager.shared.availableFontFamilies
+
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack {
+            Spacer()
+
             Form {
                 Section {
-                    Picker(selection: $selectedFontIndex, label: Text("Font"), content: {
+                    Picker("Font", selection: $selectedFontIndex) {
                         ForEach(availableFonts, id: \.self) { font in
                             Text(font).font(.custom(font, size: fontsize)).frame(height: 50)
                         }
-                    })
-                        .frame(width: 250)
+                    }
+                    .frame(width: 250)
 
                     HStack {
-                        Text("Font size")
                         TextField("", text: $fontsizeString).frame(width: 40)
+                        Text("Font size")
                     }
 
                     HStack {
-                        Text("Line spacing")
                         TextField("", text: $linespacingString).frame(width: 40)
+                        Text("Line spacing")
                     }
                 }
             }
 
-            Text("Demonstration of font choices...")
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).foregroundColor(.accentColor))
+            Divider().padding(5)
+
+            VStack(alignment: .leading) {
+                Text("Example text")
+                Text("Demonstration of font choices.\nOften there are multiple lines.")
+                    .textFont(fontName: availableFonts[selectedFontIndex], fontSize: fontsize, lineSapce: linespacing, colorScheme: colorScheme)
+                    .padding()
+                    .textBackground(colorScheme: colorScheme)
+            }
+
+            Spacer()
 
             SettingsCancelAndSaveButtons(cancelAction: cancelButtonTapped, saveAction: saveButtonTapped)
                 .padding()
