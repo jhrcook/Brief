@@ -24,10 +24,15 @@ struct FontSettingsView: View {
 
     @Environment(\.colorScheme) private var colorScheme
 
+    private let frameWidth: CGFloat = 500
+
+    private let exampleText: String = """
+    Automatic summarization is the process of shortening a set of data computationally, to create a subset (a summary) that represents the most important or relevant information within the original content.
+    In addition to text, images and videos can also be summarized. Text summarization finds the most informative sentences in a document; image summarization finds the most representative images within an image collection; video summarization extracts the most important frames from the video content.
+    """
+
     var body: some View {
         VStack {
-            Spacer()
-
             Form {
                 Section {
                     Picker("Font", selection: $selectedFontIndex) {
@@ -53,27 +58,21 @@ struct FontSettingsView: View {
 
             VStack(alignment: .leading) {
                 Text("Example text")
-                Text("Demonstration of font choices.\nOften there are multiple lines.")
+                    .font(.caption)
+                Text(exampleText)
+                    .frame(width: frameWidth - 100, height: 100)
                     .textFont(fontName: availableFonts[selectedFontIndex], fontSize: fontsize, lineSapce: linespacing, colorScheme: colorScheme)
                     .padding()
                     .textBackground(colorScheme: colorScheme)
             }
-
-            Spacer()
-
-            SettingsCancelAndSaveButtons(cancelAction: cancelButtonTapped, saveAction: saveButtonTapped)
-                .padding()
         }
-    }
-
-    private func cancelButtonTapped() {
-        close()
-        loadSettings()
-    }
-
-    private func saveButtonTapped() {
-        saveSettings()
-        close()
+        .frame(width: frameWidth, height: 300)
+        .onAppear {
+            loadSettings()
+        }
+        .onDisappear {
+            saveSettings()
+        }
     }
 
     private func loadSettings() {

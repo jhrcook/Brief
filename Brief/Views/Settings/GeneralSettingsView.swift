@@ -26,25 +26,14 @@ struct GeneralSettingsView: View {
                 }
             }
             .padding(20)
-
-            Spacer()
-
-            SettingsCancelAndSaveButtons(cancelAction: cancelButtonTapped, saveAction: saveButtonTapped)
-                .padding()
         }
+        .frame(width: 500, height: 150)
         .onAppear {
-            defaultSummaryRatio = Double(UserDefaultsManager().read(key: .defaultSummaryRatio))
+            loadSettings()
         }
-    }
-
-    private func cancelButtonTapped() {
-        close()
-        loadSettings()
-    }
-
-    private func saveButtonTapped() {
-        writeSettings()
-        close()
+        .onDisappear {
+            writeSettings()
+        }
     }
 
     private func loadSettings() {

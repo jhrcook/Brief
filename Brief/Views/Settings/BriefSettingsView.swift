@@ -20,12 +20,10 @@ struct BriefSettingsView: View {
                 .tabItem {
                     Label("General", systemImage: "gear")
                 }
-                .frame(width: 500, height: 150)
             FontSettingsView(settingsManager: settingsManager)
                 .tabItem {
                     Label("Font", systemImage: "textformat")
                 }
-                .frame(width: 500, height: 300)
             StopwordsSettingsView()
                 .tabItem {
                     Label("Stopwords", systemImage: "strikethrough")
@@ -33,27 +31,6 @@ struct BriefSettingsView: View {
                 .frame(width: 500, height: 150)
         }
         .tabViewStyle(DefaultTabViewStyle())
-    }
-}
-
-struct SettingsCancelAndSaveButtons: View {
-    let cancelAction: () -> Void
-    let saveAction: () -> Void
-
-    var body: some View {
-        HStack(alignment: .center) {
-            Spacer()
-
-            Button("Cancel", action: cancelAction)
-                .keyboardShortcut(.cancelAction)
-                .padding(.horizontal)
-
-            Button("Save", action: saveAction)
-                .keyboardShortcut(.defaultAction)
-                .padding(.horizontal)
-
-            Spacer()
-        }
     }
 }
 
