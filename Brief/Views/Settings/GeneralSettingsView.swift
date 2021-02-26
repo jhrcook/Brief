@@ -5,10 +5,12 @@
 //  Created by Joshua on 2/22/21.
 //
 
+import os
 import SwiftUI
 
 struct GeneralSettingsView: View {
     let settingsManager: UserDefaultsManager
+    let logger: Logger
 
     @State private var defaultSummaryRatio = 0.0
     @State private var clearInputAndOutput: Bool = true
@@ -16,9 +18,12 @@ struct GeneralSettingsView: View {
     var body: some View {
         VStack {
             Form {
-                Toggle(isOn: $clearInputAndOutput, label: {
-                    Text("Clear both input and summary text?")
-                })
+                Group {
+                    Toggle(isOn: $clearInputAndOutput, label: {
+                        Text("Clear both input and summary text?")
+                    })
+                    Text("Turn off to only clear the input with the 'Clear' button.").font(.caption2).foregroundColor(.gray)
+                }
 
                 Slider(value: $defaultSummaryRatio, in: 0.0 ... 1.0) {
                     Text("Default summary ratio ")
@@ -31,24 +36,33 @@ struct GeneralSettingsView: View {
         .onAppear {
             loadSettings()
         }
-        .onDisappear {
-            writeSettings()
+        .onChange(of: defaultSummaryRatio) { _ in
+            saveDefaultSummaryRatio()
+        }
+        .onChange(of: clearInputAndOutput) { _ in
+            saveClearInputAndOutputOption()
         }
     }
 
     private func loadSettings() {
+        logger.info("Loading general settings.")
         defaultSummaryRatio = Double(settingsManager.read(key: .defaultSummaryRatio))
         clearInputAndOutput = settingsManager.read(key: .clearInputAndOutput)
     }
 
-    private func writeSettings() {
+    private func saveDefaultSummaryRatio() {
+        logger.info("Saving default summary ratio: \(defaultSummaryRatio, privacy: .public)")
         settingsManager.write(value: Float(defaultSummaryRatio), for: .defaultSummaryRatio)
+    }
+
+    private func saveClearInputAndOutputOption() {
+        logger.info("Saving clearing option: \(clearInputAndOutput ? "clear both" : "just input", privacy: .public)")
         settingsManager.write(value: clearInputAndOutput, for: .clearInputAndOutput)
     }
 }
 
 struct GeneralSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingsView(settingsManager: UserDefaultsManager())
+        GeneralSettingsView(settingsManager: UserDefaultsManager(), logger: Logger.settingsLogger)
     }
 }
