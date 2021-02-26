@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840A721D25E91538004C6008 /* SummarizationOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */; };
 		8413B27125B5AC71006E6F9F /* BriefApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B27025B5AC71006E6F9F /* BriefApp.swift */; };
 		8413B27325B5AC71006E6F9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B27225B5AC71006E6F9F /* ContentView.swift */; };
 		8413B27525B5AC75006E6F9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8413B27425B5AC75006E6F9F /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizationOutputFormat.swift; sourceTree = "<group>"; };
 		8413B26D25B5AC71006E6F9F /* Brief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brief.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8413B27025B5AC71006E6F9F /* BriefApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefApp.swift; sourceTree = "<group>"; };
 		8413B27225B5AC71006E6F9F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840A721B25E91526004C6008 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		8413B26425B5AC71006E6F9F = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +140,7 @@
 				84C058D925DBDAFF00019395 /* General */,
 				84C058D825DBDAE600019395 /* Views */,
 				84C058DA25DBDB2300019395 /* Models */,
+				840A721B25E91526004C6008 /* Enums */,
 				8413B27925B5AC75006E6F9F /* Info.plist */,
 				8413B27425B5AC75006E6F9F /* Assets.xcassets */,
 				8413B27A25B5AC75006E6F9F /* Brief.entitlements */,
@@ -348,6 +359,7 @@
 				844E1ED125E28B0E0052515C /* PasteboardManager.swift in Sources */,
 				8424EA7B25DFD99F00FCEC4E /* BriefCommands.swift in Sources */,
 				84924F1125E3D9C40044D005 /* FontSettingsView.swift in Sources */,
+				840A721D25E91538004C6008 /* SummarizationOutputFormat.swift in Sources */,
 				84924F0C25E3D9A40044D005 /* GeneralSettingsView.swift in Sources */,
 				8424EA8525DFE6BD00FCEC4E /* TextInputAndOutputView.swift in Sources */,
 				8417DAB625E516F800E1C712 /* View-Extension.swift in Sources */,
