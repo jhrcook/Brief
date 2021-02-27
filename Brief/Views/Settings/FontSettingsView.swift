@@ -22,8 +22,8 @@ struct FontSettingsView: View {
         CGFloat(Float(linespacingString) ?? 3)
     }
 
-    @State private var selectedFont = ""
-    private let availableFonts = NSFontManager.shared.availableFontFamilies
+    @AppStorage(UserDefaultsManager.Key.fontname.rawValue) private var selectedFont = ""
+    private let availableFonts = FontManager.availableFonts // NSFontManager.shared.availableFontFamilies
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -39,7 +39,7 @@ struct FontSettingsView: View {
                 Section {
                     Picker("Font", selection: $selectedFont) {
                         ForEach(availableFonts, id: \.self) { font in
-                            Text(font).font(.custom(font, size: fontsize)).frame(height: 50)
+                            Text(font).font(.custom(font, size: CGFloat(fontsize))).frame(height: 50)
                         }
                     }
                     .frame(width: 250)
@@ -63,7 +63,7 @@ struct FontSettingsView: View {
                     .font(.caption)
                 Text(exampleText)
                     .frame(width: frameWidth - 100, height: 100)
-                    .textFont(fontName: selectedFont, fontSize: fontsize, lineSapce: linespacing, colorScheme: colorScheme)
+                    .textFont(fontName: selectedFont, fontSize: CGFloat(fontsize), lineSapce: linespacing, colorScheme: colorScheme)
                     .padding()
                     .textBackground(colorScheme: colorScheme)
             }
@@ -71,9 +71,6 @@ struct FontSettingsView: View {
         .frame(width: frameWidth, height: 300)
         .onAppear {
             loadSettings()
-        }
-        .onChange(of: selectedFont) { _ in
-            saveFontname()
         }
         .onChange(of: fontsize) { _ in
             saveFontsize()
@@ -85,18 +82,12 @@ struct FontSettingsView: View {
 
     private func loadSettings() {
         logger.info("Loading font settings.")
-        selectedFont = settingsManager.read(key: .fontname)
 
         let savedFontsize: Float = settingsManager.read(key: .fontsize)
         fontsizeString = formatFloat(savedFontsize)
 
         let savedLinespacing: Float = settingsManager.read(key: .linespacing)
         linespacingString = formatFloat(savedLinespacing)
-    }
-
-    private func saveFontname() {
-        logger.info("Saving fontname as: \(selectedFont, privacy: .public)")
-        settingsManager.write(value: selectedFont, for: .fontname)
     }
 
     private func saveFontsize() {

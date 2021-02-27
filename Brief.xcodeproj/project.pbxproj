@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8402F7EE25EA7951009CDE7F /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402F7ED25EA7951009CDE7F /* FontManager.swift */; };
 		840A721D25E91538004C6008 /* SummarizationOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */; };
 		8413B27125B5AC71006E6F9F /* BriefApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B27025B5AC71006E6F9F /* BriefApp.swift */; };
 		8413B27325B5AC71006E6F9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B27225B5AC71006E6F9F /* ContentView.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8402F7ED25EA7951009CDE7F /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizationOutputFormat.swift; sourceTree = "<group>"; };
 		8413B26D25B5AC71006E6F9F /* Brief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brief.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8413B27025B5AC71006E6F9F /* BriefApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefApp.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				8424EA7A25DFD99F00FCEC4E /* BriefCommands.swift */,
 				84D8E51F25E14E9B006FF5DB /* UserDefaultsManager.swift */,
 				844E1ED025E28B0D0052515C /* PasteboardManager.swift */,
+				8402F7ED25EA7951009CDE7F /* FontManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				84D8E52025E14E9B006FF5DB /* UserDefaultsManager.swift in Sources */,
 				84C058E025DBDC0500019395 /* Summarizer.swift in Sources */,
 				8413B27125B5AC71006E6F9F /* BriefApp.swift in Sources */,
+				8402F7EE25EA7951009CDE7F /* FontManager.swift in Sources */,
 				8424EA8025DFD9D500FCEC4E /* BriefSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

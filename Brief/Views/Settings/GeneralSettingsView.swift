@@ -12,9 +12,9 @@ struct GeneralSettingsView: View {
     let settingsManager: UserDefaultsManager
     let logger: Logger
 
-    @State private var defaultSummaryRatio = 0.0
-    @State private var clearInputAndOutput: Bool = true
-    @State private var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder
+    @AppStorage(UserDefaultsManager.Key.defaultSummaryRatio.rawValue) private var defaultSummaryRatio = 0.0
+    @AppStorage(UserDefaultsManager.Key.clearInputAndOutput.rawValue) private var clearInputAndOutput: Bool = true
+    @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder
 
     var body: some View {
         VStack {
@@ -42,40 +42,6 @@ struct GeneralSettingsView: View {
             .padding(20)
         }
         .frame(width: 500, height: 200)
-        .onAppear {
-            loadSettings()
-        }
-        .onChange(of: defaultSummaryRatio) { _ in
-            saveDefaultSummaryRatio()
-        }
-        .onChange(of: clearInputAndOutput) { _ in
-            saveClearInputAndOutputOption()
-        }
-        .onChange(of: summarizationOutputFormat) { _ in
-            saveSummarizationOutputFormat()
-        }
-    }
-
-    private func loadSettings() {
-        logger.info("Loading general settings.")
-        defaultSummaryRatio = Double(settingsManager.read(key: .defaultSummaryRatio))
-        clearInputAndOutput = settingsManager.read(key: .clearInputAndOutput)
-        summarizationOutputFormat = settingsManager.readSummarizationOutputFormat()
-    }
-
-    private func saveDefaultSummaryRatio() {
-        logger.info("Saving default summary ratio: \(defaultSummaryRatio, privacy: .public)")
-        settingsManager.write(value: Float(defaultSummaryRatio), for: .defaultSummaryRatio)
-    }
-
-    private func saveClearInputAndOutputOption() {
-        logger.info("Saving clearing option: \(clearInputAndOutput ? "clear both" : "just input", privacy: .public)")
-        settingsManager.write(value: clearInputAndOutput, for: .clearInputAndOutput)
-    }
-
-    private func saveSummarizationOutputFormat() {
-        logger.info("Saving summarization output format: \(summarizationOutputFormat.rawValue)")
-        settingsManager.write(value: summarizationOutputFormat.rawValue, for: .summarizationOutputFormat)
     }
 }
 
