@@ -36,7 +36,9 @@ struct GeneralSettingsView: View {
 
                 Slider(value: $defaultSummaryRatio, in: 0.0 ... 1.0) {
                     Text("Default summary ratio ")
-                    Text("\(defaultSummaryRatio * 100, specifier: "%.0f")%").bold().frame(width: 40)
+                    Text("\(defaultSummaryRatio * 100, specifier: "%.0f")%")
+                        .bold()
+                        .frame(width: 40)
                 }
             }
             .padding(20)

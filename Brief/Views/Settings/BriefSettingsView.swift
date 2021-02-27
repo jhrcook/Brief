@@ -30,7 +30,6 @@ struct BriefSettingsView: View {
                 .tabItem {
                     Label("Stopwords", systemImage: "strikethrough")
                 }
-                .frame(width: 500, height: 150)
         }
         .tabViewStyle(DefaultTabViewStyle())
     }
