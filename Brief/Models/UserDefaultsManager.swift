@@ -12,6 +12,7 @@ struct UserDefaultsManager {
         case defaultSummaryRatio, clearInputAndOutput
         case summarizationOutputFormat
         case fontname, fontsize, linespacing
+        case stopwords
     }
 
     let defaults: [String: Any] = [
@@ -37,6 +38,10 @@ struct UserDefaultsManager {
 
     func read(key: Key) -> String {
         UserDefaults.standard.string(forKey: key.rawValue)!
+    }
+
+    func read(key: Key) -> [String] {
+        UserDefaults.standard.stringArray(forKey: key.rawValue) ?? [String]()
     }
 
     func readSummarizationOutputFormat() -> SummarizationOutputFormat {

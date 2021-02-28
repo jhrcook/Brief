@@ -26,7 +26,7 @@ struct BriefSettingsView: View {
                 .tabItem {
                     Label("Font", systemImage: "textformat")
                 }
-            StopwordsSettingsView()
+            StopwordsSettingsView(settingsManager: settingsManager, logger: logger)
                 .tabItem {
                     Label("Stopwords", systemImage: "strikethrough")
                 }
