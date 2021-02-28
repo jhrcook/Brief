@@ -3,16 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8402F7EE25EA7951009CDE7F /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402F7ED25EA7951009CDE7F /* FontManager.swift */; };
+		840A721D25E91538004C6008 /* SummarizationOutputFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */; };
 		8413B27125B5AC71006E6F9F /* BriefApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B27025B5AC71006E6F9F /* BriefApp.swift */; };
 		8413B27325B5AC71006E6F9F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B27225B5AC71006E6F9F /* ContentView.swift */; };
 		8413B27525B5AC75006E6F9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8413B27425B5AC75006E6F9F /* Assets.xcassets */; };
 		8413B27825B5AC75006E6F9F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8413B27725B5AC75006E6F9F /* Preview Assets.xcassets */; };
-		8413B28425B5AC76006E6F9F /* BriefTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B28325B5AC76006E6F9F /* BriefTests.swift */; };
 		8413B28F25B5AC76006E6F9F /* BriefUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8413B28E25B5AC76006E6F9F /* BriefUITests.swift */; };
+		8417DAB625E516F800E1C712 /* View-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8417DAB525E516F800E1C712 /* View-Extension.swift */; };
+		8417DABB25E5182600E1C712 /* StopwordsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8417DABA25E5182600E1C712 /* StopwordsSettingsView.swift */; };
+		8424EA7B25DFD99F00FCEC4E /* BriefCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EA7A25DFD99F00FCEC4E /* BriefCommands.swift */; };
+		8424EA8025DFD9D500FCEC4E /* BriefSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EA7F25DFD9D500FCEC4E /* BriefSettingsView.swift */; };
+		8424EA8525DFE6BD00FCEC4E /* TextInputAndOutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424EA8425DFE6BD00FCEC4E /* TextInputAndOutputView.swift */; };
+		844E1ED125E28B0E0052515C /* PasteboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E1ED025E28B0D0052515C /* PasteboardManager.swift */; };
+		844E1ED625E28BAD0052515C /* PasteboardManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E1ED525E28BAD0052515C /* PasteboardManagerTests.swift */; };
+		84924F0C25E3D9A40044D005 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84924F0B25E3D9A40044D005 /* GeneralSettingsView.swift */; };
+		84924F1125E3D9C40044D005 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84924F1025E3D9C40044D005 /* FontSettingsView.swift */; };
+		84C058E025DBDC0500019395 /* Summarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C058DF25DBDC0500019395 /* Summarizer.swift */; };
+		84D8E52025E14E9B006FF5DB /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D8E51F25E14E9B006FF5DB /* UserDefaultsManager.swift */; };
+		84DDF19225DA8C3D005E1864 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDF19125DA8C3D005E1864 /* Logging.swift */; };
+		84DDF19725DA9310005E1864 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDF19625DA9310005E1864 /* Colors.swift */; };
+		84FBC1AE25DBDD8D0076E14E /* TextRank in Frameworks */ = {isa = PBXBuildFile; productRef = 84FBC1AD25DBDD8D0076E14E /* TextRank */; };
+		84FBC1C025DBE4B40076E14E /* SummarizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FBC1BF25DBE4B40076E14E /* SummarizerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8402F7ED25EA7951009CDE7F /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
+		840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizationOutputFormat.swift; sourceTree = "<group>"; };
 		8413B26D25B5AC71006E6F9F /* Brief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brief.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8413B27025B5AC71006E6F9F /* BriefApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefApp.swift; sourceTree = "<group>"; };
 		8413B27225B5AC71006E6F9F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -41,11 +59,25 @@
 		8413B27925B5AC75006E6F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8413B27A25B5AC75006E6F9F /* Brief.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Brief.entitlements; sourceTree = "<group>"; };
 		8413B27F25B5AC76006E6F9F /* BriefTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8413B28325B5AC76006E6F9F /* BriefTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefTests.swift; sourceTree = "<group>"; };
 		8413B28525B5AC76006E6F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8413B28A25B5AC76006E6F9F /* BriefUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BriefUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8413B28E25B5AC76006E6F9F /* BriefUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefUITests.swift; sourceTree = "<group>"; };
 		8413B29025B5AC76006E6F9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8417DAB525E516F800E1C712 /* View-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View-Extension.swift"; sourceTree = "<group>"; };
+		8417DABA25E5182600E1C712 /* StopwordsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopwordsSettingsView.swift; sourceTree = "<group>"; };
+		8424EA7A25DFD99F00FCEC4E /* BriefCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefCommands.swift; sourceTree = "<group>"; };
+		8424EA7F25DFD9D500FCEC4E /* BriefSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefSettingsView.swift; sourceTree = "<group>"; };
+		8424EA8425DFE6BD00FCEC4E /* TextInputAndOutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputAndOutputView.swift; sourceTree = "<group>"; };
+		844E1ED025E28B0D0052515C /* PasteboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardManager.swift; sourceTree = "<group>"; };
+		844E1ED525E28BAD0052515C /* PasteboardManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardManagerTests.swift; sourceTree = "<group>"; };
+		84924F0B25E3D9A40044D005 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		84924F1025E3D9C40044D005 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
+		84C058DF25DBDC0500019395 /* Summarizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summarizer.swift; sourceTree = "<group>"; };
+		84D8E51F25E14E9B006FF5DB /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		84DDF19125DA8C3D005E1864 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
+		84DDF19625DA9310005E1864 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		84FBC1B825DBDEEC0076E14E /* TextRank */ = {isa = PBXFileReference; lastKnownFileType = folder; name = TextRank; path = ../TextRank; sourceTree = "<group>"; };
+		84FBC1BF25DBE4B40076E14E /* SummarizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84FBC1AE25DBDD8D0076E14E /* TextRank in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,9 +106,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		840A721B25E91526004C6008 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		8413B26425B5AC71006E6F9F = {
 			isa = PBXGroup;
 			children = (
+				84FBC1B825DBDEEC0076E14E /* TextRank */,
 				8413B26F25B5AC71006E6F9F /* Brief */,
 				8413B28225B5AC76006E6F9F /* BriefTests */,
 				8413B28D25B5AC76006E6F9F /* BriefUITests */,
@@ -97,9 +139,12 @@
 			isa = PBXGroup;
 			children = (
 				8413B27025B5AC71006E6F9F /* BriefApp.swift */,
-				8413B27225B5AC71006E6F9F /* ContentView.swift */,
-				8413B27425B5AC75006E6F9F /* Assets.xcassets */,
+				84C058D925DBDAFF00019395 /* General */,
+				84C058D825DBDAE600019395 /* Views */,
+				84C058DA25DBDB2300019395 /* Models */,
+				840A721B25E91526004C6008 /* Enums */,
 				8413B27925B5AC75006E6F9F /* Info.plist */,
+				8413B27425B5AC75006E6F9F /* Assets.xcassets */,
 				8413B27A25B5AC75006E6F9F /* Brief.entitlements */,
 				8413B27625B5AC75006E6F9F /* Preview Content */,
 			);
@@ -117,8 +162,9 @@
 		8413B28225B5AC76006E6F9F /* BriefTests */ = {
 			isa = PBXGroup;
 			children = (
-				8413B28325B5AC76006E6F9F /* BriefTests.swift */,
 				8413B28525B5AC76006E6F9F /* Info.plist */,
+				84FBC1BF25DBE4B40076E14E /* SummarizerTests.swift */,
+				844E1ED525E28BAD0052515C /* PasteboardManagerTests.swift */,
 			);
 			path = BriefTests;
 			sourceTree = "<group>";
@@ -130,6 +176,49 @@
 				8413B29025B5AC76006E6F9F /* Info.plist */,
 			);
 			path = BriefUITests;
+			sourceTree = "<group>";
+		};
+		84924F0A25E3D9870044D005 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8424EA7F25DFD9D500FCEC4E /* BriefSettingsView.swift */,
+				84924F0B25E3D9A40044D005 /* GeneralSettingsView.swift */,
+				84924F1025E3D9C40044D005 /* FontSettingsView.swift */,
+				8417DABA25E5182600E1C712 /* StopwordsSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		84C058D825DBDAE600019395 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84924F0A25E3D9870044D005 /* Settings */,
+				8413B27225B5AC71006E6F9F /* ContentView.swift */,
+				8424EA8425DFE6BD00FCEC4E /* TextInputAndOutputView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		84C058D925DBDAFF00019395 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				84DDF19625DA9310005E1864 /* Colors.swift */,
+				84DDF19125DA8C3D005E1864 /* Logging.swift */,
+				8417DAB525E516F800E1C712 /* View-Extension.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		84C058DA25DBDB2300019395 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				84C058DF25DBDC0500019395 /* Summarizer.swift */,
+				8424EA7A25DFD99F00FCEC4E /* BriefCommands.swift */,
+				84D8E51F25E14E9B006FF5DB /* UserDefaultsManager.swift */,
+				844E1ED025E28B0D0052515C /* PasteboardManager.swift */,
+				8402F7ED25EA7951009CDE7F /* FontManager.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +237,9 @@
 			dependencies = (
 			);
 			name = Brief;
+			packageProductDependencies = (
+				84FBC1AD25DBDD8D0076E14E /* TextRank */,
+			);
 			productName = Brief;
 			productReference = 8413B26D25B5AC71006E6F9F /* Brief.app */;
 			productType = "com.apple.product-type.application";
@@ -195,7 +287,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1230;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					8413B26C25B5AC71006E6F9F = {
 						CreatedOnToolsVersion = 12.3;
@@ -219,6 +311,9 @@
 				Base,
 			);
 			mainGroup = 8413B26425B5AC71006E6F9F;
+			packageReferences = (
+				84FBC1AC25DBDD8D0076E14E /* XCRemoteSwiftPackageReference "TextRank" */,
+			);
 			productRefGroup = 8413B26E25B5AC71006E6F9F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -262,7 +357,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				8413B27325B5AC71006E6F9F /* ContentView.swift in Sources */,
+				8417DABB25E5182600E1C712 /* StopwordsSettingsView.swift in Sources */,
+				84DDF19725DA9310005E1864 /* Colors.swift in Sources */,
+				844E1ED125E28B0E0052515C /* PasteboardManager.swift in Sources */,
+				8424EA7B25DFD99F00FCEC4E /* BriefCommands.swift in Sources */,
+				84924F1125E3D9C40044D005 /* FontSettingsView.swift in Sources */,
+				840A721D25E91538004C6008 /* SummarizationOutputFormat.swift in Sources */,
+				84924F0C25E3D9A40044D005 /* GeneralSettingsView.swift in Sources */,
+				8424EA8525DFE6BD00FCEC4E /* TextInputAndOutputView.swift in Sources */,
+				8417DAB625E516F800E1C712 /* View-Extension.swift in Sources */,
+				84DDF19225DA8C3D005E1864 /* Logging.swift in Sources */,
+				84D8E52025E14E9B006FF5DB /* UserDefaultsManager.swift in Sources */,
+				84C058E025DBDC0500019395 /* Summarizer.swift in Sources */,
 				8413B27125B5AC71006E6F9F /* BriefApp.swift in Sources */,
+				8402F7EE25EA7951009CDE7F /* FontManager.swift in Sources */,
+				8424EA8025DFD9D500FCEC4E /* BriefSettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +379,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8413B28425B5AC76006E6F9F /* BriefTests.swift in Sources */,
+				844E1ED625E28BAD0052515C /* PasteboardManagerTests.swift in Sources */,
+				84FBC1C025DBE4B40076E14E /* SummarizerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +529,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Brief/Brief.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Brief/Preview Content\"";
@@ -444,6 +555,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Brief/Brief.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Brief/Preview Content\"";
@@ -587,6 +699,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		84FBC1AC25DBDD8D0076E14E /* XCRemoteSwiftPackageReference "TextRank" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jhrcook/TextRank.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84FBC1AD25DBDD8D0076E14E /* TextRank */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84FBC1AC25DBDD8D0076E14E /* XCRemoteSwiftPackageReference "TextRank" */;
+			productName = TextRank;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8413B26525B5AC71006E6F9F /* Project object */;
 }
