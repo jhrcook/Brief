@@ -8,36 +8,52 @@
 import Foundation
 
 struct UserDefaultsManager {
-    enum UserDefaultsKeys: String {
+    enum Key: String {
         case defaultSummaryRatio, clearInputAndOutput
+        case summarizationOutputFormat
         case fontname, fontsize, linespacing
+        case stopwords
     }
 
     let defaults: [String: Any] = [
-        UserDefaultsKeys.defaultSummaryRatio.rawValue: 0.20,
-        UserDefaultsKeys.clearInputAndOutput.rawValue: true,
-        UserDefaultsKeys.fontname.rawValue: "Helvetica Neue",
-        UserDefaultsKeys.fontsize.rawValue: 12.0,
-        UserDefaultsKeys.linespacing.rawValue: 3.0,
+        Key.defaultSummaryRatio.rawValue: 0.20,
+        Key.clearInputAndOutput.rawValue: true,
+        Key.summarizationOutputFormat.rawValue: SummarizationOutputFormat.orginalOrder.rawValue,
+        Key.fontname.rawValue: "Helvetica Neue",
+        Key.fontsize.rawValue: 12.0,
+        Key.linespacing.rawValue: 3.0,
     ]
 
     init() {
         setDefaultValues()
     }
 
-    func read(key: UserDefaultsKeys) -> Float {
+    func read(key: Key) -> Float {
         return UserDefaults.standard.float(forKey: key.rawValue)
     }
 
-    func read(key: UserDefaultsKeys) -> Bool {
+    func read(key: Key) -> Bool {
         return UserDefaults.standard.bool(forKey: key.rawValue)
     }
 
-    func read(key: UserDefaultsKeys) -> String {
+    func read(key: Key) -> String {
         UserDefaults.standard.string(forKey: key.rawValue)!
     }
 
-    func write<T>(value: T, for key: UserDefaultsKeys) {
+    func read(key: Key) -> [String] {
+        UserDefaults.standard.stringArray(forKey: key.rawValue) ?? [String]()
+    }
+
+    func readSummarizationOutputFormat() -> SummarizationOutputFormat {
+        if let formatString = UserDefaults.standard.string(forKey: Key.summarizationOutputFormat.rawValue) {
+            if let format = SummarizationOutputFormat(rawValue: formatString) {
+                return format
+            }
+        }
+        return SummarizationOutputFormat.orginalOrder
+    }
+
+    func write<T>(value: T, for key: Key) {
         UserDefaults.standard.setValue(value, forKey: key.rawValue)
     }
 

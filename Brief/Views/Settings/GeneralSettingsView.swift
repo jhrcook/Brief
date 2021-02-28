@@ -5,61 +5,50 @@
 //  Created by Joshua on 2/22/21.
 //
 
+import os
 import SwiftUI
 
 struct GeneralSettingsView: View {
     let settingsManager: UserDefaultsManager
+    let logger: Logger
 
-    @State private var defaultSummaryRatio = 0.0
-    @State private var clearInputAndOutput: Bool = true
+    @AppStorage(UserDefaultsManager.Key.defaultSummaryRatio.rawValue) private var defaultSummaryRatio = 0.0
+    @AppStorage(UserDefaultsManager.Key.clearInputAndOutput.rawValue) private var clearInputAndOutput: Bool = true
+    @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder
 
     var body: some View {
         VStack {
             Form {
-                Toggle(isOn: $clearInputAndOutput, label: {
-                    Text("Clear both input and summary text?")
-                })
+                Group {
+                    Toggle(isOn: $clearInputAndOutput, label: {
+                        Text("Clear both input and summary text?")
+                    })
+                    Text("Turn off to only clear the input with the 'Clear' button.").font(.caption2).foregroundColor(.gray)
+                }
+
+                Picker("Order of summarized output.", selection: $summarizationOutputFormat) {
+                    ForEach(SummarizationOutputFormat.allCases, id: \.self) { outputForm in
+                        Text(outputForm.rawValue)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
 
                 Slider(value: $defaultSummaryRatio, in: 0.0 ... 1.0) {
                     Text("Default summary ratio ")
-                    Text("\(defaultSummaryRatio * 100, specifier: "%.0f")%").bold().frame(width: 40)
+                    Text("\(defaultSummaryRatio * 100, specifier: "%.0f")%")
+                        .bold()
+                        .frame(width: 40)
                 }
             }
             .padding(20)
-
-            Spacer()
-
-            SettingsCancelAndSaveButtons(cancelAction: cancelButtonTapped, saveAction: saveButtonTapped)
-                .padding()
         }
-        .onAppear {
-            defaultSummaryRatio = Double(UserDefaultsManager().read(key: .defaultSummaryRatio))
-        }
-    }
-
-    private func cancelButtonTapped() {
-        close()
-        loadSettings()
-    }
-
-    private func saveButtonTapped() {
-        writeSettings()
-        close()
-    }
-
-    private func loadSettings() {
-        defaultSummaryRatio = Double(settingsManager.read(key: .defaultSummaryRatio))
-        clearInputAndOutput = settingsManager.read(key: .clearInputAndOutput)
-    }
-
-    private func writeSettings() {
-        settingsManager.write(value: Float(defaultSummaryRatio), for: .defaultSummaryRatio)
-        settingsManager.write(value: clearInputAndOutput, for: .clearInputAndOutput)
+        .frame(width: 500, height: 200)
     }
 }
 
 struct GeneralSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        GeneralSettingsView(settingsManager: UserDefaultsManager())
+        GeneralSettingsView(settingsManager: UserDefaultsManager(), logger: Logger.settingsLogger)
     }
 }
