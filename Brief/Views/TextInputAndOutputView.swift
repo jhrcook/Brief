@@ -22,7 +22,7 @@ struct TextBackgroundModifier: ViewModifier {
 struct TextFontModifier: ViewModifier {
     let fontName: String
     let fontSize: CGFloat
-    let lineSpace: CGFloat
+    let lineSpacing: CGFloat
     let colorScheme: ColorScheme
 
     func body(content: Content) -> some View {
@@ -30,7 +30,7 @@ struct TextFontModifier: ViewModifier {
             .foregroundColor(colorScheme == .light ? .black : .white)
             .font(.custom(fontName, size: fontSize))
             .multilineTextAlignment(.leading)
-            .lineSpacing(lineSpace)
+            .lineSpacing(lineSpacing)
     }
 }
 
@@ -39,42 +39,45 @@ extension View {
         modifier(TextBackgroundModifier(colorScheme: colorScheme))
     }
 
-    func textFont(fontName: String, fontSize: CGFloat, lineSapce: CGFloat, colorScheme: ColorScheme) -> some View {
-        modifier(TextFontModifier(fontName: fontName, fontSize: fontSize, lineSpace: lineSapce, colorScheme: colorScheme))
+    func textFont(fontName: String, fontSize: CGFloat, lineSapcing: CGFloat, colorScheme: ColorScheme) -> some View {
+        modifier(TextFontModifier(fontName: fontName, fontSize: fontSize, lineSpacing: lineSapcing, colorScheme: colorScheme))
     }
 }
 
 struct TextInputAndOutputView: View {
     @Binding var input: String
     var output: String
+    let settingsManager: UserDefaultsManager
 
-    private let fontName = "Helvetica Neue"
-    private let fontSize: CGFloat = 14
-    private let textLineSpacing: CGFloat = 4
+    @AppStorage(UserDefaultsManager.Key.fontname.rawValue) private var fontName: String = ""
+    @AppStorage(UserDefaultsManager.Key.fontsize.rawValue) private var fontSize: Double = 13
+    @AppStorage(UserDefaultsManager.Key.linespacing.rawValue) private var lineSpacing: Double = 4
 
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        TextEditor(text: $input)
-            .textFont(fontName: fontName, fontSize: fontSize, lineSapce: textLineSpacing, colorScheme: colorScheme)
-            .frame(minWidth: 50, maxWidth: .infinity, minHeight: 50)
-            .padding(8)
-            .textBackground(colorScheme: colorScheme)
-            .padding(.top, 8)
-
-        ScrollView {
-            Text(output)
-                .textFont(fontName: fontName, fontSize: fontSize, lineSapce: textLineSpacing, colorScheme: colorScheme)
+        VStack {
+            TextEditor(text: $input)
+                .textFont(fontName: fontName, fontSize: CGFloat(fontSize), lineSapcing: CGFloat(lineSpacing), colorScheme: colorScheme)
                 .frame(minWidth: 50, maxWidth: .infinity, minHeight: 50)
                 .padding(8)
                 .textBackground(colorScheme: colorScheme)
-                .padding(.top, 5)
+                .padding(.top, 8)
+
+            ScrollView {
+                Text(output)
+                    .textFont(fontName: fontName, fontSize: CGFloat(fontSize), lineSapcing: CGFloat(lineSpacing), colorScheme: colorScheme)
+                    .frame(minWidth: 50, maxWidth: .infinity, minHeight: 50)
+                    .padding(8)
+                    .textBackground(colorScheme: colorScheme)
+                    .padding(.top, 5)
+            }
         }
     }
 }
 
 struct TextInputAndOutputView_Previews: PreviewProvider {
     static var previews: some View {
-        TextInputAndOutputView(input: .constant("Some input text."), output: "Some output text.")
+        TextInputAndOutputView(input: .constant("Some input text."), output: "Some output text.", settingsManager: UserDefaultsManager())
     }
 }

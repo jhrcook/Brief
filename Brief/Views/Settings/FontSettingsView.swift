@@ -12,14 +12,14 @@ struct FontSettingsView: View {
     let settingsManager: UserDefaultsManager
     let logger: Logger
 
-    @State private var fontsizeString: String = "12"
-    private var fontsize: CGFloat {
-        CGFloat(Float(fontsizeString) ?? 12)
+    @State private var fontSizeString: String = "13"
+    private var fontSize: CGFloat {
+        CGFloat(Float(fontSizeString) ?? 13)
     }
 
-    @State private var linespacingString: String = "3"
-    private var linespacing: CGFloat {
-        CGFloat(Float(linespacingString) ?? 3)
+    @State private var lineSpacingString: String = "3"
+    private var lineSpacing: CGFloat {
+        CGFloat(Float(lineSpacingString) ?? 3)
     }
 
     @AppStorage(UserDefaultsManager.Key.fontname.rawValue) private var selectedFont = ""
@@ -39,18 +39,18 @@ struct FontSettingsView: View {
                 Section {
                     Picker("Font", selection: $selectedFont) {
                         ForEach(availableFonts, id: \.self) { font in
-                            Text(font).font(.custom(font, size: CGFloat(fontsize))).frame(height: 50)
+                            Text(font).font(.custom(font, size: CGFloat(fontSize))).frame(height: 50)
                         }
                     }
                     .frame(width: 250)
 
                     HStack {
-                        TextField("", text: $fontsizeString).frame(width: 40)
+                        TextField("", text: $fontSizeString).frame(width: 40)
                         Text("Font size")
                     }
 
                     HStack {
-                        TextField("", text: $linespacingString).frame(width: 40)
+                        TextField("", text: $lineSpacingString).frame(width: 40)
                         Text("Line spacing")
                     }
                 }
@@ -63,7 +63,7 @@ struct FontSettingsView: View {
                     .font(.caption)
                 Text(exampleText)
                     .frame(width: frameWidth - 100, height: 100)
-                    .textFont(fontName: selectedFont, fontSize: CGFloat(fontsize), lineSapce: linespacing, colorScheme: colorScheme)
+                    .textFont(fontName: selectedFont, fontSize: CGFloat(fontSize), lineSapcing: lineSpacing, colorScheme: colorScheme)
                     .padding()
                     .textBackground(colorScheme: colorScheme)
             }
@@ -72,10 +72,10 @@ struct FontSettingsView: View {
         .onAppear {
             loadSettings()
         }
-        .onChange(of: fontsize) { _ in
+        .onChange(of: fontSize) { _ in
             saveFontsize()
         }
-        .onChange(of: linespacing) { _ in
+        .onChange(of: lineSpacing) { _ in
             SaveLinespacing()
         }
     }
@@ -84,27 +84,27 @@ struct FontSettingsView: View {
         logger.info("Loading font settings.")
 
         let savedFontsize: Float = settingsManager.read(key: .fontsize)
-        fontsizeString = formatFloat(savedFontsize)
+        fontSizeString = formatFloat(savedFontsize)
 
         let savedLinespacing: Float = settingsManager.read(key: .linespacing)
-        linespacingString = formatFloat(savedLinespacing)
+        lineSpacingString = formatFloat(savedLinespacing)
     }
 
     private func saveFontsize() {
-        logger.info("Saving fontsize as: \(fontsizeString, privacy: .public)")
-        if let fs = Float(fontsizeString) {
+        logger.info("Saving fontsize as: \(fontSizeString, privacy: .public)")
+        if let fs = Float(fontSizeString) {
             settingsManager.write(value: fs, for: .fontsize)
         } else {
-            logger.error("Cannot save font size: \(fontsizeString, privacy: .public)")
+            logger.error("Cannot save font size: \(fontSizeString, privacy: .public)")
         }
     }
 
     private func SaveLinespacing() {
-        logger.info("Saving line spacing as: \(linespacingString, privacy: .public)")
-        if let ls = Float(linespacingString) {
+        logger.info("Saving line spacing as: \(lineSpacingString, privacy: .public)")
+        if let ls = Float(lineSpacingString) {
             settingsManager.write(value: ls, for: .linespacing)
         } else {
-            logger.error("Cannot save line spacing: \(linespacingString, privacy: .public)")
+            logger.error("Cannot save line spacing: \(lineSpacingString, privacy: .public)")
         }
     }
 

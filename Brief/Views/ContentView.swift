@@ -17,7 +17,8 @@ struct ContentView: View {
     var body: some View {
         VStack {
             TextInputAndOutputView(input: $summarizer.inputText,
-                                   output: summarizer.summarizedText)
+                                   output: summarizer.summarizedText,
+                                   settingsManager: settingsManager)
                 .padding(.horizontal)
 
             HStack {

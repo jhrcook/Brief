@@ -28,6 +28,10 @@ struct UserDefaultsManager {
         setDefaultValues()
     }
 
+    func read(key: Key) -> Double {
+        return UserDefaults.standard.double(forKey: key.rawValue)
+    }
+
     func read(key: Key) -> Float {
         return UserDefaults.standard.float(forKey: key.rawValue)
     }
