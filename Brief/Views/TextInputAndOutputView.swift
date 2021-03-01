@@ -49,9 +49,9 @@ struct TextInputAndOutputView: View {
     var output: String
     let settingsManager: UserDefaultsManager
 
-    @AppStorage(UserDefaultsManager.Key.fontname.rawValue) private var fontName: String = ""
-    @AppStorage(UserDefaultsManager.Key.fontsize.rawValue) private var fontSize: Double = 13
-    @AppStorage(UserDefaultsManager.Key.linespacing.rawValue) private var lineSpacing: Double = 4
+    @AppStorage(UserDefaultsManager.Key.fontName.rawValue) private var fontName: String = ""
+    @AppStorage(UserDefaultsManager.Key.fontSize.rawValue) private var fontSize: Double = 13
+    @AppStorage(UserDefaultsManager.Key.lineSpacing.rawValue) private var lineSpacing: Double = 4
 
     @Environment(\.colorScheme) private var colorScheme
 

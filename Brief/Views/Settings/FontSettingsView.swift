@@ -22,7 +22,7 @@ struct FontSettingsView: View {
         CGFloat(Float(lineSpacingString) ?? 3)
     }
 
-    @AppStorage(UserDefaultsManager.Key.fontname.rawValue) private var selectedFont = ""
+    @AppStorage(UserDefaultsManager.Key.fontName.rawValue) private var selectedFont = ""
     private let availableFonts = FontManager.availableFonts // NSFontManager.shared.availableFontFamilies
 
     @Environment(\.colorScheme) private var colorScheme
@@ -83,17 +83,17 @@ struct FontSettingsView: View {
     private func loadSettings() {
         logger.info("Loading font settings.")
 
-        let savedFontsize: Float = settingsManager.read(key: .fontsize)
+        let savedFontsize: Float = settingsManager.read(key: .fontSize)
         fontSizeString = formatFloat(savedFontsize)
 
-        let savedLinespacing: Float = settingsManager.read(key: .linespacing)
+        let savedLinespacing: Float = settingsManager.read(key: .lineSpacing)
         lineSpacingString = formatFloat(savedLinespacing)
     }
 
     private func saveFontsize() {
         logger.info("Saving fontsize as: \(fontSizeString, privacy: .public)")
         if let fs = Float(fontSizeString) {
-            settingsManager.write(value: fs, for: .fontsize)
+            settingsManager.write(value: fs, for: .fontSize)
         } else {
             logger.error("Cannot save font size: \(fontSizeString, privacy: .public)")
         }
@@ -102,7 +102,7 @@ struct FontSettingsView: View {
     private func SaveLinespacing() {
         logger.info("Saving line spacing as: \(lineSpacingString, privacy: .public)")
         if let ls = Float(lineSpacingString) {
-            settingsManager.write(value: ls, for: .linespacing)
+            settingsManager.write(value: ls, for: .lineSpacing)
         } else {
             logger.error("Cannot save line spacing: \(lineSpacingString, privacy: .public)")
         }
