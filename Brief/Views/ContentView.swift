@@ -67,11 +67,13 @@ struct ContentView: View {
         .focusedValue(\.focusedSummarizer, summarizer)
         .onAppear {
             summarizer.summaryRatio = settingsManager.read(key: .defaultSummaryRatio)
+            summarizer.summarizationOutputFormat = settingsManager.readSummarizationOutputFormat()
         }
         .onChange(of: summarizationOutputFormat) { _ in
             if let outputFormat = SummarizationOutputFormat(rawValue: summarizationOutputFormat) {
                 logger.info("Changing summarization output format to '\(outputFormat.rawValue, privacy: .public)'")
                 summarizer.summarizationOutputFormat = outputFormat
+                summarizer.summarize()
             } else {
                 logger.error("SummariztionOutputFormat not available: \(summarizationOutputFormat, privacy: .public)")
             }

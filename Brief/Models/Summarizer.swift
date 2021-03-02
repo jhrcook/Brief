@@ -32,11 +32,7 @@ class Summarizer: ObservableObject {
 
     let logger = Logger.summarizerLogger
 
-    var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder {
-        didSet {
-            summarize()
-        }
-    }
+    var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder
 
     #if DEBUG
         init() {
