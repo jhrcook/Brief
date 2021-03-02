@@ -12,4 +12,5 @@ extension Logger {
     static let subsystem = "com.joshuacook.Brief"
     static let summarizerLogger = Logger(subsystem: subsystem, category: "Summarizer")
     static let settingsLogger = Logger(subsystem: subsystem, category: "Settings")
+    static let contentViewLogger = Logger(subsystem: subsystem, category: "ContentView")
 }

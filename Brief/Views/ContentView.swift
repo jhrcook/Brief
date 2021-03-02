@@ -6,13 +6,17 @@
 //
 
 import AppKit
+import os
 import SwiftUI
 
 struct ContentView: View {
     @StateObject var summarizer = Summarizer()
+    let logger = Logger.contentViewLogger
     let settingsManager: UserDefaultsManager
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.undoManager) var undoManager
+
+    @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: String = ""
 
     var body: some View {
         VStack {
@@ -63,6 +67,14 @@ struct ContentView: View {
         .focusedValue(\.focusedSummarizer, summarizer)
         .onAppear {
             summarizer.summaryRatio = settingsManager.read(key: .defaultSummaryRatio)
+        }
+        .onChange(of: summarizationOutputFormat) { _ in
+            if let outputFormat = SummarizationOutputFormat(rawValue: summarizationOutputFormat) {
+                logger.info("Changing summarization output format to '\(outputFormat.rawValue, privacy: .public)'")
+                summarizer.summarizationOutputFormat = outputFormat
+            } else {
+                logger.error("SummariztionOutputFormat not available: \(summarizationOutputFormat, privacy: .public)")
+            }
         }
     }
 
