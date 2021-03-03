@@ -93,7 +93,9 @@ struct FontSettingsView: View {
     private func saveFontsize() {
         logger.info("Saving fontsize as: \(fontSizeString, privacy: .public)")
         if let fs = Float(fontSizeString) {
-            settingsManager.write(value: fs, for: .fontSize)
+            DispatchQueue.global(qos: .userInitiated).async {
+                settingsManager.write(value: fs, for: .fontSize)
+            }
         } else {
             logger.error("Cannot save font size: \(fontSizeString, privacy: .public)")
         }
@@ -102,7 +104,9 @@ struct FontSettingsView: View {
     private func SaveLinespacing() {
         logger.info("Saving line spacing as: \(lineSpacingString, privacy: .public)")
         if let ls = Float(lineSpacingString) {
-            settingsManager.write(value: ls, for: .lineSpacing)
+            DispatchQueue.global(qos: .userInitiated).async {
+                settingsManager.write(value: ls, for: .lineSpacing)
+            }
         } else {
             logger.error("Cannot save line spacing: \(lineSpacingString, privacy: .public)")
         }
