@@ -10,15 +10,21 @@ import os
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: Persistent objects.
+
     @StateObject var summarizer = Summarizer()
     let logger = Logger.contentViewLogger
     let settingsManager: UserDefaultsManager
-    @Environment(\.colorScheme) var colorScheme
-    @Environment(\.undoManager) var undoManager
+
+    // MARK: App storage (user settings) variables.
 
     @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: String = ""
-
     @AppStorage(UserDefaultsManager.Key.stopwords.rawValue) private var stopwords = [String]()
+
+    // MARK: Environment objects.
+
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.undoManager) var undoManager
 
     var body: some View {
         VStack {

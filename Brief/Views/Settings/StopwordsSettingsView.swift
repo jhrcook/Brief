@@ -26,13 +26,8 @@ struct StopwordsSettingsView: View {
         .frame(width: 500, height: 200)
         .onChange(of: stopwordsText) { _ in
             stopwords = parseStopWordsText(stopwordsText)
-            // DispatchQueue.global(qos: .userInitiated).async {
-            //      let stopwords = parseStopWordsText(stopwordsText)
-            //      settingsManager.write(value: stopwords, for: .stopwords)
-            // }
         }
         .onAppear {
-            // var stopwords: [String] = settingsManager.read(key: .stopwords)
             stopwordsText = stopwords.sorted().joined(separator: ", ")
         }
     }
