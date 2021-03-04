@@ -18,6 +18,8 @@ struct ContentView: View {
 
     @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: String = ""
 
+    @AppStorage(UserDefaultsManager.Key.stopwords.rawValue) private var stopwords = [String]()
+
     var body: some View {
         VStack {
             TextInputAndOutputView(input: $summarizer.inputText,
@@ -68,6 +70,9 @@ struct ContentView: View {
         .onAppear {
             summarizer.summaryRatio = settingsManager.read(key: .defaultSummaryRatio)
             summarizer.summarizationOutputFormat = settingsManager.readSummarizationOutputFormat()
+        }
+        .onChange(of: stopwords) { _ in
+            summarizer.setStopwords(stopwords)
         }
         .onChange(of: summarizationOutputFormat) { _ in
             if let outputFormat = SummarizationOutputFormat(rawValue: summarizationOutputFormat) {

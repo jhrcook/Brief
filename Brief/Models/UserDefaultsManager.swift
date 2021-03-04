@@ -22,6 +22,7 @@ struct UserDefaultsManager {
         Key.fontName.rawValue: "Helvetica Neue",
         Key.fontSize.rawValue: 12.0,
         Key.lineSpacing.rawValue: 3.0,
+        Key.stopwords.rawValue: [String](),
     ]
 
     init() {

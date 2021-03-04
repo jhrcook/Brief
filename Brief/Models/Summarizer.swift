@@ -86,6 +86,10 @@ class Summarizer: ObservableObject {
 
         return results
     }
+
+    public func setStopwords(_ stopwords: [String]) {
+        textrank.stopwords = stopwords
+    }
 }
 
 extension Summarizer {
