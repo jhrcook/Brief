@@ -32,6 +32,8 @@ class Summarizer: ObservableObject {
 
     let logger = Logger.summarizerLogger
 
+    var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder
+
     #if DEBUG
         init() {
             inputText = Summarizer.mockInputText()
@@ -58,11 +60,21 @@ class Summarizer: ObservableObject {
     }
 
     private func summarizePageRankResult(_ PRResult: TextGraph.PageRankResult, reduceTo percentile: Float) -> String {
-        let x = textrank
-            .filterTopSentencesFrom(PRResult, top: percentile)
-            .keys
-            .sorted { $0.originalTextIndex < $1.originalTextIndex }
-        return pageRankResultToString(sentences: x)
+        let filteredNodelist = textrank.filterTopSentencesFrom(PRResult, top: percentile)
+
+        var sortedSentences = [Sentence]()
+        switch summarizationOutputFormat {
+        case .byImportance:
+            sortedSentences = Array(filteredNodelist.keys)
+                .sorted { filteredNodelist[$0]! > filteredNodelist[$1]! }
+
+        case .orginalOrder:
+            sortedSentences = filteredNodelist
+                .keys
+                .sorted { $0.originalTextIndex < $1.originalTextIndex }
+        }
+
+        return pageRankResultToString(sentences: sortedSentences)
     }
 
     private func pageRankResultToString(sentences: [Sentence]) -> String {
@@ -73,6 +85,10 @@ class Summarizer: ObservableObject {
         }
 
         return results
+    }
+
+    public func setStopwords(_ stopwords: [String]) {
+        textrank.stopwords = stopwords
     }
 }
 
@@ -98,7 +114,11 @@ extension Summarizer {
 #if DEBUG
     extension Summarizer {
         static func mockInputText() -> String {
-            "All swifts eat insects, such as dragonflies, flies, ants, aphids, wasps and bees as well as aerial spiders. Prey is typically caught in flight using the beak. Some species, like the chimney swift, hunt in mixed species flocks with other aerial insectivores such as members of Hirundinidae (swallows). No swift species has become extinct since 1600, but BirdLife International has assessed the Guam swiftlet as endangered and lists the Atiu, dark-rumped, Schouteden's, Seychelles, and Tahiti swiftlets as vulnerable. Twelve other species are near threatened or lack sufficient data for classification."
+            """
+            Swifts are among the fastest of birds, and larger species like the white-throated needletail have been reported travelling at up to 169 km/h (105 mph) in level flight. Even the common swift can cruise at a maximum speed of 31 metres per second (112 km/h; 70 mph). In a single year the common swift can cover at least 200,000 km and in a lifetime, about two million kilometers; enough to fly to the Moon five times over.
+            The wingtip bones of swiftlets are of proportionately greater length than those of most other birds. Changing the angle between the bones of the wingtips and forelimbs allows swifts to alter the shape and area of their wings to increase their efficiency and maneuverability at various speeds. They share with their relatives the hummingbirds a unique ability to rotate their wings from the base, allowing the wing to remain rigid and fully extended and derive power on both the upstroke and downstroke. The downstroke produces both lift and thrust, while the upstroke produces a negative thrust (drag) that is 60% of the thrust generated during the downstrokes, but simultaneously it contributes lift that is also 60% of what is produced during the downstroke. This flight arrangement might benefit the bird's control and maneuverability in the air.
+            The swiftlets or cave swiftlets have developed a form of echolocation for navigating through dark cave systems where they roost. One species, the Three-toed swiftlet, has recently been found to use this navigation at night outside its cave roost too.
+            """
         }
     }
 #endif

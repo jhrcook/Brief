@@ -6,18 +6,31 @@
 //
 
 import AppKit
+import os
 import SwiftUI
 
 struct ContentView: View {
+    // MARK: Persistent objects.
+
     @StateObject var summarizer = Summarizer()
+    let logger = Logger.contentViewLogger
     let settingsManager: UserDefaultsManager
+
+    // MARK: App storage (user settings) variables.
+
+    @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: String = ""
+    @AppStorage(UserDefaultsManager.Key.stopwords.rawValue) private var stopwords = [String]()
+
+    // MARK: Environment objects.
+
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.undoManager) var undoManager
 
     var body: some View {
         VStack {
             TextInputAndOutputView(input: $summarizer.inputText,
-                                   output: summarizer.summarizedText)
+                                   output: summarizer.summarizedText,
+                                   settingsManager: settingsManager)
                 .padding(.horizontal)
 
             HStack {
@@ -62,6 +75,19 @@ struct ContentView: View {
         .focusedValue(\.focusedSummarizer, summarizer)
         .onAppear {
             summarizer.summaryRatio = settingsManager.read(key: .defaultSummaryRatio)
+            summarizer.summarizationOutputFormat = settingsManager.readSummarizationOutputFormat()
+        }
+        .onChange(of: stopwords) { _ in
+            summarizer.setStopwords(stopwords)
+        }
+        .onChange(of: summarizationOutputFormat) { _ in
+            if let outputFormat = SummarizationOutputFormat(rawValue: summarizationOutputFormat) {
+                logger.info("Changing summarization output format to '\(outputFormat.rawValue, privacy: .public)'")
+                summarizer.summarizationOutputFormat = outputFormat
+                summarizer.summarize()
+            } else {
+                logger.error("SummariztionOutputFormat not available: \(summarizationOutputFormat, privacy: .public)")
+            }
         }
     }
 

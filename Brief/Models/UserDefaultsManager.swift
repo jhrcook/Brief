@@ -11,7 +11,7 @@ struct UserDefaultsManager {
     enum Key: String {
         case defaultSummaryRatio, clearInputAndOutput
         case summarizationOutputFormat
-        case fontname, fontsize, linespacing
+        case fontName, fontSize, lineSpacing
         case stopwords
     }
 
@@ -19,13 +19,18 @@ struct UserDefaultsManager {
         Key.defaultSummaryRatio.rawValue: 0.20,
         Key.clearInputAndOutput.rawValue: true,
         Key.summarizationOutputFormat.rawValue: SummarizationOutputFormat.orginalOrder.rawValue,
-        Key.fontname.rawValue: "Helvetica Neue",
-        Key.fontsize.rawValue: 12.0,
-        Key.linespacing.rawValue: 3.0,
+        Key.fontName.rawValue: "Helvetica Neue",
+        Key.fontSize.rawValue: 12.0,
+        Key.lineSpacing.rawValue: 3.0,
+        Key.stopwords.rawValue: [String](),
     ]
 
     init() {
         setDefaultValues()
+    }
+
+    func read(key: Key) -> Double {
+        return UserDefaults.standard.double(forKey: key.rawValue)
     }
 
     func read(key: Key) -> Float {

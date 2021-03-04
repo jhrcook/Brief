@@ -13,7 +13,7 @@ struct StopwordsSettingsView: View {
     let logger: Logger
 
     @State private var stopwordsText: String = ""
-
+    @AppStorage(UserDefaultsManager.Key.stopwords.rawValue) private var stopwords = [String]()
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
@@ -25,15 +25,10 @@ struct StopwordsSettingsView: View {
         .padding()
         .frame(width: 500, height: 200)
         .onChange(of: stopwordsText) { _ in
-            DispatchQueue.global(qos: .userInitiated).async {
-                let stopwords = parseStopWordsText(stopwordsText)
-                settingsManager.write(value: stopwords, for: .stopwords)
-            }
+            stopwords = parseStopWordsText(stopwordsText)
         }
         .onAppear {
-            var stopwords: [String] = settingsManager.read(key: .stopwords)
-            stopwords.sort()
-            stopwordsText = stopwords.joined(separator: ", ")
+            stopwordsText = stopwords.sorted().joined(separator: ", ")
         }
     }
 
@@ -45,6 +40,7 @@ struct StopwordsSettingsView: View {
             .map { $0.split(separator: ",") }
             .flatMap { $0 }
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .sorted()
     }
 }
 
