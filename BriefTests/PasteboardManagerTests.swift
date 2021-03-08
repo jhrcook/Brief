@@ -19,7 +19,6 @@ class PasteboardManagerTests: XCTestCase {
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         pasteboardManager.copyToClipboard(currentCopiedText)
         pasteboardManager = nil
         currentCopiedText = nil
@@ -35,5 +34,19 @@ class PasteboardManagerTests: XCTestCase {
 
         // Then
         XCTAssertEqual(text, pasteboardManager.getCurrentlyCopiedText()!)
+    }
+
+    func testNilStringDoesNotGetCopied() {
+        // Given
+        let nonNilString = "Here is some text."
+        pasteboardManager.copyToClipboard(nonNilString)
+        let firstCopy = pasteboardManager.getCurrentlyCopiedText()
+
+        // When
+        pasteboardManager.copyToClipboard(nil)
+        let secondCopy = pasteboardManager.getCurrentlyCopiedText()
+
+        // Then
+        XCTAssertEqual(firstCopy, secondCopy)
     }
 }

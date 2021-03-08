@@ -62,7 +62,7 @@ class SummarizerTests: XCTestCase {
         }
     }
 
-    func testClearing() {
+    func testClearingBothInputAndOutput() {
         // Given
         summarizer.inputText = text
         summarizer.summarize()
@@ -77,5 +77,22 @@ class SummarizerTests: XCTestCase {
         XCTAssertTrue(!oldOutput.isEmpty)
         XCTAssertTrue(summarizer.inputText.isEmpty)
         XCTAssertTrue(summarizer.summarizedText.isEmpty)
+    }
+
+    func testClearingBothInputOnly() {
+        // Given
+        summarizer.inputText = text
+        summarizer.summarize()
+
+        // When
+        let oldInput = summarizer.inputText
+        let oldOutput = summarizer.summarizedText
+        summarizer.clear(withUndoManager: nil, clearOutput: false)
+
+        // Then
+        XCTAssertEqual(oldInput, text)
+        XCTAssertTrue(!oldOutput.isEmpty)
+        XCTAssertTrue(summarizer.inputText.isEmpty)
+        XCTAssertTrue(!summarizer.summarizedText.isEmpty)
     }
 }
