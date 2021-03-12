@@ -71,6 +71,7 @@ struct TextInputAndOutputView: View {
                     .padding(8)
                     .textBackground(colorScheme: colorScheme)
                     .padding(.top, 5)
+                    .animation(.easeInOut(duration: 0.13))
             }
         }
     }
