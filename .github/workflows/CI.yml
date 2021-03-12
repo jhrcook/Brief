@@ -22,7 +22,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11.0, macos-10.15]
+        os: [macos-11.0]
     steps:
     - uses: actions/checkout@v2
     - name: Build App
@@ -32,7 +32,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11.0, macos-10.15]
+        os: [macos-11.0]
     steps:
     - uses: actions/checkout@v2
     - name: Test App
