@@ -22,18 +22,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-11.0]
+        os: [macos-11.0, macos-10.15]
     steps:
     - uses: actions/checkout@v2
     - name: Build App
       run: xcodebuild clean build -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION"
-  test-app:
-    name: Test Brief app
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-11.0]
-    steps:
-    - uses: actions/checkout@v2
-    - name: Test App
-      run: xcodebuild -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" test
+  # test-app:
+  #   name: Test Brief app
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       os: [macos-11.0]
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Test App
+  #     run: xcodebuild -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" test
