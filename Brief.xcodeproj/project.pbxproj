@@ -24,6 +24,8 @@
 		844E1ED625E28BAD0052515C /* PasteboardManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844E1ED525E28BAD0052515C /* PasteboardManagerTests.swift */; };
 		84924F0C25E3D9A40044D005 /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84924F0B25E3D9A40044D005 /* GeneralSettingsView.swift */; };
 		84924F1125E3D9C40044D005 /* FontSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84924F1025E3D9C40044D005 /* FontSettingsView.swift */; };
+		84ACFB1A25FF6A41008D1E5E /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ACFB1925FF6A41008D1E5E /* NotificationBanner.swift */; };
+		84ACFB1F25FF6C8D008D1E5E /* SummarizationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ACFB1E25FF6C8D008D1E5E /* SummarizationError.swift */; };
 		84C058E025DBDC0500019395 /* Summarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C058DF25DBDC0500019395 /* Summarizer.swift */; };
 		84D8E52025E14E9B006FF5DB /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D8E51F25E14E9B006FF5DB /* UserDefaultsManager.swift */; };
 		84DDF19225DA8C3D005E1864 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DDF19125DA8C3D005E1864 /* Logging.swift */; };
@@ -74,6 +76,8 @@
 		844E1ED525E28BAD0052515C /* PasteboardManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardManagerTests.swift; sourceTree = "<group>"; };
 		84924F0B25E3D9A40044D005 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
 		84924F1025E3D9C40044D005 /* FontSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSettingsView.swift; sourceTree = "<group>"; };
+		84ACFB1925FF6A41008D1E5E /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
+		84ACFB1E25FF6C8D008D1E5E /* SummarizationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizationError.swift; sourceTree = "<group>"; };
 		84C058DF25DBDC0500019395 /* Summarizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Summarizer.swift; sourceTree = "<group>"; };
 		84D8E51F25E14E9B006FF5DB /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		84DDF19125DA8C3D005E1864 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				840A721C25E91538004C6008 /* SummarizationOutputFormat.swift */,
+				84ACFB1E25FF6C8D008D1E5E /* SummarizationError.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				84924F0A25E3D9870044D005 /* Settings */,
 				8413B27225B5AC71006E6F9F /* ContentView.swift */,
 				8424EA8425DFE6BD00FCEC4E /* TextInputAndOutputView.swift */,
+				84ACFB1925FF6A41008D1E5E /* NotificationBanner.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,9 +371,11 @@
 				844E1ED125E28B0E0052515C /* PasteboardManager.swift in Sources */,
 				842C0AF125F0F6F6003E3299 /* ArrayRawRepresentableExtension.swift in Sources */,
 				8424EA7B25DFD99F00FCEC4E /* BriefCommands.swift in Sources */,
+				84ACFB1A25FF6A41008D1E5E /* NotificationBanner.swift in Sources */,
 				84924F1125E3D9C40044D005 /* FontSettingsView.swift in Sources */,
 				840A721D25E91538004C6008 /* SummarizationOutputFormat.swift in Sources */,
 				84924F0C25E3D9A40044D005 /* GeneralSettingsView.swift in Sources */,
+				84ACFB1F25FF6C8D008D1E5E /* SummarizationError.swift in Sources */,
 				8424EA8525DFE6BD00FCEC4E /* TextInputAndOutputView.swift in Sources */,
 				8417DAB625E516F800E1C712 /* View-Extension.swift in Sources */,
 				84DDF19225DA8C3D005E1864 /* Logging.swift in Sources */,

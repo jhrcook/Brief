@@ -8,31 +8,7 @@
 import AppKit
 import os
 import SwiftUI
-
-struct NotificationBanner: View {
-    @Binding var text: String
-
-    @Environment(\.colorScheme) var colorScheme
-
-    var shadowColor: Color {
-        colorScheme == .light ? Color.black.opacity(0.5) : Color.white.opacity(0.4)
-    }
-
-    var backgroundColor: Color {
-        colorScheme == .light ? .lightGray : .darkmodeNotificationGray
-    }
-
-    var body: some View {
-        Text(text)
-            .padding(.horizontal, 8)
-            .padding(.vertical, 6)
-            .background(
-                RoundedRectangle(cornerRadius: 4, style: .continuous)
-                    .foregroundColor(backgroundColor)
-                    .shadow(color: shadowColor, radius: 5, x: -1, y: 2)
-            )
-    }
-}
+import TextRank
 
 struct ContentView: View {
     // MARK: Persistent objects.
@@ -69,6 +45,7 @@ struct ContentView: View {
                         Text("Clear")
                     }
                     .keyboardShortcut("b", modifiers: .command)
+                    .disabled(summarizer.inputText.isEmpty && summarizer.summarizedText.isEmpty)
 
                     Button(action: undoClearButtonTapped) {
                         Image(systemName: "arrow.uturn.left.circle")
@@ -91,7 +68,7 @@ struct ContentView: View {
                             .foregroundColor(colorScheme == .light ? .secondaryLightGray : .clear)
                     )
 
-                    Button(action: summarizer.summarize) {
+                    Button(action: summarizerButtonTapped) {
                         Text("Summarize")
                     }
 
@@ -128,7 +105,7 @@ struct ContentView: View {
             if let outputFormat = SummarizationOutputFormat(rawValue: summarizationOutputFormat) {
                 logger.info("Changing summarization output format to '\(outputFormat.rawValue, privacy: .public)'")
                 summarizer.summarizationOutputFormat = outputFormat
-                summarizer.summarize()
+                summarizerButtonTapped()
             } else {
                 logger.error("SummariztionOutputFormat not available: \(summarizationOutputFormat, privacy: .public)")
             }
@@ -143,11 +120,36 @@ struct ContentView: View {
         undoManager?.undo()
     }
 
+    private func summarizerButtonTapped() {
+        do {
+            try summarizer.summarize()
+        } catch let SummarizationError.NotEnoughTextToSummarize(n) {
+            logger.info("Summarization attempted with too few sentences (\(n, privacy: .public)).")
+            notification("Not enough to summarize")
+        } catch TextGraph.PageRankError.EmptyEdgeList, TextGraph.PageRankError.EmptyNodeList {
+            logger.info("Summarization attempted with too few sentences.")
+            notification("Not enough to summarize")
+        } catch let SummarizationError.PageRankDidNotConverge(iterations) {
+            logger.error("PageRank did not converge after \(iterations, privacy: .public) iterations.")
+            notification("Algorithm did not converge")
+        } catch {
+            logger.error("Unknown error during summarization: \(error.localizedDescription, privacy: .public)")
+            notification("Unknown error")
+        }
+    }
+
     private func copyButtonTapped() {
-        notificationText = "Copied summary"
-        animateNotification()
+        notification("Copied summary")
         let pbManager = PasteboardManager()
         pbManager.copyToClipboard(summarizer.summarizedText)
+    }
+
+    private func notification(_ text: String) {
+        notificationText = text
+        if showNotification {
+            showNotification = false
+        }
+        animateNotification()
     }
 
     private func animateNotification(delay: Double = 4.0) {
