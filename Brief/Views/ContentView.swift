@@ -15,34 +15,22 @@ struct NotificationBanner: View {
     @Environment(\.colorScheme) var colorScheme
 
     var shadowColor: Color {
-        colorScheme == .dark ? Color.white.opacity(0.4) : Color.black.opacity(0.5)
+        colorScheme == .light ? Color.black.opacity(0.5) : Color.white.opacity(0.4)
+    }
+
+    var backgroundColor: Color {
+        colorScheme == .light ? .lightGray : .darkmodeNotificationGray
     }
 
     var body: some View {
-        HStack(alignment: .center, spacing: 4) {
-            Image(systemName: "bell.fill")
-                .padding(6)
-                .background(
-                    Circle()
-                        .modifier(BackgroundModifier(shadowColor: shadowColor))
-                )
-            Text(text)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 4, style: .continuous)
-                        .modifier(BackgroundModifier(shadowColor: shadowColor))
-                )
-        }
-    }
-
-    struct BackgroundModifier: ViewModifier {
-        var shadowColor: Color
-        func body(content: Content) -> some View {
-            content
-                .foregroundColor(.gray)
-                .shadow(color: shadowColor, radius: 5, x: -1, y: 2)
-        }
+        Text(text)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 6)
+            .background(
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .foregroundColor(backgroundColor)
+                    .shadow(color: shadowColor, radius: 5, x: -1, y: 2)
+            )
     }
 }
 
