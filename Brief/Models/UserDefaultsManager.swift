@@ -16,7 +16,7 @@ struct UserDefaultsManager {
     }
 
     let defaults: [String: Any] = [
-        Key.defaultSummaryRatio.rawValue: 0.20,
+        Key.defaultSummaryRatio.rawValue: 0.80,
         Key.clearInputAndOutput.rawValue: true,
         Key.summarizationOutputFormat.rawValue: SummarizationOutputFormat.orginalOrder.rawValue,
         Key.fontName.rawValue: "Helvetica Neue",

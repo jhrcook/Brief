@@ -5,19 +5,26 @@
 //  Created by Joshua on 2/19/21.
 //
 
+import os
 import SwiftUI
 
 struct BriefCommands: Commands {
     let settingsManager: UserDefaultsManager
+    let logger = Logger.commandsLogger
 
     private struct MenuContent: View {
         let settingsManager: UserDefaultsManager
+        let logger = Logger.commandsLogger
         @FocusedValue(\.focusedSummarizer) var summarizer
         @Environment(\.undoManager) var undoManager
 
         var body: some View {
             Button("Summarize") {
-                summarizer?.summarize()
+                do {
+                    try summarizer?.summarize()
+                } catch {
+                    logger.error("Error during summarization: \(error.localizedDescription)")
+                }
             }
             .keyboardShortcut(KeyEquivalent("r"), modifiers: .command)
             .disabled(summarizer?.inputText.isEmpty ?? true || summarizer == nil)
@@ -26,7 +33,11 @@ struct BriefCommands: Commands {
                 guard let summarizer = summarizer else { return }
                 if let text = PasteboardManager().getCurrentlyCopiedText() {
                     summarizer.inputText = text
-                    summarizer.summarize()
+                    do {
+                        try summarizer.summarize()
+                    } catch {
+                        logger.error("Error during summarization: \(error.localizedDescription)")
+                    }
                 }
             }
             .keyboardShortcut(KeyEquivalent("v"), modifiers: [.command, .option])

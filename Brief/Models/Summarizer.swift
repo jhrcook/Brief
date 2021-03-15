@@ -37,25 +37,29 @@ class Summarizer: ObservableObject {
     #if DEBUG
         init() {
             inputText = Summarizer.mockInputText()
-            summarize()
+            do {
+                try summarize()
+            } catch {
+                logger.debug("Unable to summarize debug testing text.")
+            }
         }
     #endif
 
-    func summarize() {
+    func summarize() throws {
         logger.info("Running PageRank summarization.")
         textrank.text = inputText
 
-        if textrank.sentences.count < 4 { return }
+        if textrank.sentences.count < 4 {
+            throw SummarizationError.NotEnoughTextToSummarize(n: textrank.sentences.count)
+        }
 
-        do {
-            let pageRankResult = try textrank.runPageRank()
-            textRankConverged = pageRankResult.didConverge
-            textRankIterations = pageRankResult.iterations
-            if pageRankResult.didConverge {
-                self.pageRankResult = pageRankResult
-            }
-        } catch {
-            logger.error("PageRank failed: \(error.localizedDescription)")
+        let pageRankResult = try textrank.runPageRank()
+        textRankConverged = pageRankResult.didConverge
+        textRankIterations = pageRankResult.iterations
+        if pageRankResult.didConverge {
+            self.pageRankResult = pageRankResult
+        } else {
+            throw SummarizationError.PageRankDidNotConverge(iterations: pageRankResult.iterations)
         }
     }
 
@@ -99,7 +103,7 @@ extension Summarizer {
             logger.info("Registering undo action for clear.")
             undoManager.registerUndo(withTarget: self) { _ in
                 self.inputText = copyOfInputText
-                self.summarize()
+                try? self.summarize()
             }
             undoManager.setActionName("Clear")
         }
