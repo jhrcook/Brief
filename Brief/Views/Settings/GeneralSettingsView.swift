@@ -16,13 +16,15 @@ struct GeneralSettingsView: View {
     @AppStorage(UserDefaultsManager.Key.clearInputAndOutput.rawValue) private var clearInputAndOutput: Bool = true
     @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: SummarizationOutputFormat = .orginalOrder
 
+    @AppStorage(UserDefaultsManager.Key.touchbarIsActive.rawValue) private var touchbarIsActive = true
+
     var body: some View {
         VStack {
             Form {
                 Group {
-                    Toggle(isOn: $clearInputAndOutput, label: {
+                    Toggle(isOn: $clearInputAndOutput) {
                         Text("Clear both input and summary text?")
-                    })
+                    }
                     Text("Turn off to only clear the input with the 'Clear' button.").font(.caption2).foregroundColor(.gray)
                 }
 
@@ -39,6 +41,10 @@ struct GeneralSettingsView: View {
                     Text("\(defaultSummaryRatio * 100, specifier: "%.0f")%")
                         .bold()
                         .frame(width: 40)
+                }
+
+                Toggle(isOn: $touchbarIsActive) {
+                    Text("Add controls to the touchbar.")
                 }
             }
             .padding(20)

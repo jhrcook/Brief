@@ -9,7 +9,7 @@ import Foundation
 
 struct UserDefaultsManager {
     enum Key: String {
-        case defaultSummaryRatio, clearInputAndOutput
+        case defaultSummaryRatio, clearInputAndOutput, touchbarIsActive
         case summarizationOutputFormat
         case fontName, fontSize, lineSpacing
         case stopwords
@@ -18,6 +18,7 @@ struct UserDefaultsManager {
     let defaults: [String: Any] = [
         Key.defaultSummaryRatio.rawValue: 0.80,
         Key.clearInputAndOutput.rawValue: true,
+        Key.touchbarIsActive.rawValue: true,
         Key.summarizationOutputFormat.rawValue: SummarizationOutputFormat.orginalOrder.rawValue,
         Key.fontName.rawValue: "Helvetica Neue",
         Key.fontSize.rawValue: 12.0,
