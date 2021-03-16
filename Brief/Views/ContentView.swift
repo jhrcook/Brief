@@ -21,6 +21,7 @@ struct ContentView: View {
 
     @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: String = ""
     @AppStorage(UserDefaultsManager.Key.stopwords.rawValue) private var stopwords = [String]()
+    @AppStorage(UserDefaultsManager.Key.touchbarIsActive.rawValue) private var touchbarIsActive = true
 
     // MARK: State objects.
 
@@ -110,8 +111,43 @@ struct ContentView: View {
                 logger.error("SummariztionOutputFormat not available: \(summarizationOutputFormat, privacy: .public)")
             }
         }
-    }
+        .touchBar {
+            HStack {
+                Button(action: clearButtonTapped) {
+                    Text("Clear")
+                }
+                .disabled(summarizer.inputText.isEmpty && summarizer.summarizedText.isEmpty)
 
+                Button(action: undoClearButtonTapped) {
+                    Text("Undo")
+                }
+                .disabled(undoManager == nil || !(undoManager?.canUndo ?? false))
+
+                HStack {
+                    Text("\(summarizer.summaryRatio * 100, specifier: "%.0f")%")
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 45)
+                    Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
+                        .frame(width: 170)
+                }
+
+                Button(action: summarizerButtonTapped) {
+                    Text("Summarize")
+                }
+
+                Button(action: copyButtonTapped) {
+                    Image(systemName: "doc.on.doc")
+                }
+                .disabled(summarizer.summarizedText.isEmpty)
+            }
+            .visible($touchbarIsActive)
+        }
+    }
+}
+
+// MARK: - Button handlers
+
+extension ContentView {
     private func clearButtonTapped() {
         summarizer.clear(withUndoManager: undoManager, clearOutput: settingsManager.read(key: .clearInputAndOutput))
     }
@@ -143,7 +179,11 @@ struct ContentView: View {
         let pbManager = PasteboardManager()
         pbManager.copyToClipboard(summarizer.summarizedText)
     }
+}
 
+// MARK: - Notification system
+
+extension ContentView {
     private func notification(_ text: String) {
         notificationText = text
         if showNotification {
