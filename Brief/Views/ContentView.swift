@@ -21,6 +21,7 @@ struct ContentView: View {
 
     @AppStorage(UserDefaultsManager.Key.summarizationOutputFormat.rawValue) private var summarizationOutputFormat: String = ""
     @AppStorage(UserDefaultsManager.Key.stopwords.rawValue) private var stopwords = [String]()
+    @AppStorage(UserDefaultsManager.Key.touchbarIsActive.rawValue) private var touchbarIsActive = true
 
     // MARK: State objects.
 
@@ -111,32 +112,35 @@ struct ContentView: View {
             }
         }
         .touchBar {
-            Button(action: clearButtonTapped) {
-                Text("Clear")
-            }
-            .disabled(summarizer.inputText.isEmpty && summarizer.summarizedText.isEmpty)
-
-            Button(action: undoClearButtonTapped) {
-                Text("Undo")
-            }
-            .disabled(undoManager == nil || !(undoManager?.canUndo ?? false))
-
             HStack {
-                Text("\(summarizer.summaryRatio * 100, specifier: "%.0f")%")
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 45)
-                Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
-                    .frame(width: 170)
-            }
+                Button(action: clearButtonTapped) {
+                    Text("Clear")
+                }
+                .disabled(summarizer.inputText.isEmpty && summarizer.summarizedText.isEmpty)
 
-            Button(action: summarizerButtonTapped) {
-                Text("Summarize")
-            }
+                Button(action: undoClearButtonTapped) {
+                    Text("Undo")
+                }
+                .disabled(undoManager == nil || !(undoManager?.canUndo ?? false))
 
-            Button(action: copyButtonTapped) {
-                Image(systemName: "doc.on.doc")
+                HStack {
+                    Text("\(summarizer.summaryRatio * 100, specifier: "%.0f")%")
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 45)
+                    Slider(value: $summarizer.summaryRatio, in: 0.0 ... 1.0)
+                        .frame(width: 170)
+                }
+
+                Button(action: summarizerButtonTapped) {
+                    Text("Summarize")
+                }
+
+                Button(action: copyButtonTapped) {
+                    Image(systemName: "doc.on.doc")
+                }
+                .disabled(summarizer.summarizedText.isEmpty)
             }
-            .disabled(summarizer.summarizedText.isEmpty)
+            .visible($touchbarIsActive)
         }
     }
 }
